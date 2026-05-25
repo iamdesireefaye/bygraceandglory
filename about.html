@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About | Esi Prints</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --gold: #c4a265; --gold-light: #d4b87a; --gold-dark: #a8884d;
+      --cream: #f5f0e8; --cream-dark: #ece4d6; --espresso: #2a1f14;
+      --charcoal: #1a1a1a; --plum: #3d2244; --white: #fefdfb;
+    }
+    body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--espresso); -webkit-font-smoothing: antialiased; }
+
+    /* Nav */
+    nav {
+      padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center;
+      background: var(--cream); border-bottom: 1px solid rgba(196,162,101,0.2);
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500;
+      color: var(--espresso); letter-spacing: 0.08em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--espresso);
+      text-decoration: none; transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    /* Hero */
+    .about-hero {
+      padding: 6rem 3rem 4rem; text-align: center; background: var(--white);
+    }
+    .about-eyebrow {
+      font-family: 'Montserrat', sans-serif; font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
+    }
+    .about-title {
+      font-family: 'Playfair Display', serif; font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 400; line-height: 1.15; margin-bottom: 1.5rem;
+    }
+    .about-title em { font-style: italic; font-weight: 300; }
+    .about-intro {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 300;
+      color: #6a5a4a; max-width: 650px; margin: 0 auto; line-height: 1.7;
+    }
+
+    /* Content */
+    .about-content { max-width: 750px; margin: 0 auto; padding: 4rem 2rem 5rem; }
+    .about-content p {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-weight: 300;
+      line-height: 1.85; color: #4a3a2a; margin-bottom: 2rem;
+    }
+    .about-content p strong {
+      font-family: 'Playfair Display', serif; font-weight: 500; font-style: italic;
+      color: var(--espresso);
+    }
+    .about-pullquote {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 300;
+      font-style: italic; color: var(--gold-dark); text-align: center;
+      padding: 2.5rem 2rem; margin: 2.5rem 0; position: relative;
+      border-top: 1px solid var(--cream-dark); border-bottom: 1px solid var(--cream-dark);
+    }
+
+    /* Values */
+    .values-section {
+      background: var(--plum); padding: 5rem 3rem; text-align: center; color: var(--white);
+    }
+    .values-title {
+      font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400;
+      margin-bottom: 3rem;
+    }
+    .values-title em { font-style: italic; font-weight: 300; }
+    .values-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem;
+      max-width: 900px; margin: 0 auto;
+    }
+    .value-item h3 {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400;
+      color: var(--gold); margin-bottom: 0.8rem;
+    }
+    .value-item p {
+      font-family: 'Montserrat', sans-serif; font-size: 0.75rem; font-weight: 300;
+      color: rgba(255,255,255,0.55); line-height: 1.8;
+    }
+
+    /* CTA */
+    .about-cta {
+      padding: 5rem 3rem; text-align: center; background: var(--cream-dark);
+    }
+    .about-cta h2 {
+      font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; margin-bottom: 1rem;
+    }
+    .about-cta h2 em { font-style: italic; font-weight: 300; }
+    .about-cta p {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: #6a5a4a; margin-bottom: 2rem;
+    }
+    .btn-primary {
+      display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 0.7rem;
+      font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--espresso); background: var(--gold); padding: 1rem 3rem;
+      text-decoration: none; transition: all 0.3s;
+    }
+    .btn-primary:hover { background: var(--gold-light); }
+
+    /* Footer */
+    footer {
+      background: var(--charcoal); padding: 2.5rem 3rem; text-align: center;
+      font-family: 'Montserrat', sans-serif; font-size: 0.6rem;
+      color: rgba(255,255,255,0.25); letter-spacing: 0.1em;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      .values-grid { grid-template-columns: 1fr; gap: 2rem; }
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-brand">Esi Prints</a>
+    <ul class="nav-links">
+      <li><a href="/">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="about-hero">
+    <p class="about-eyebrow">Our Story</p>
+    <h1 class="about-title">This Art Is <em>for You</em></h1>
+    <p class="about-intro">For the woman who is healing. For the woman who is becoming. For the woman who deserves beauty, peace, and a daily reminder that God still has her.</p>
+  </section>
+
+  <div class="about-content">
+    <p>We created Esi Prints because we believe your walls should speak to your spirit. Not just decorate a room &mdash; but remind you of who you are on the days you forget. Remind you of whose you are when the world feels too heavy.</p>
+
+    <p>Our <strong>By Grace & Glory</strong> collection was designed for the woman who is rebuilding. The woman who is choosing softness after seasons of survival. The woman who lights a candle, opens her journal, and whispers a prayer before the day begins.</p>
+
+    <div class="about-pullquote">"These aren't just prints. They're visual affirmations for the woman you're becoming."</div>
+
+    <p>Every piece in this collection carries something intentional &mdash; scripture, butterflies, crowns, candlelit devotion, quiet mornings. They reflect the beauty of Black womanhood in its most elegant, spiritual, and peaceful form.</p>
+
+    <p>Whether you're decorating your first apartment, transforming your bedroom into a sanctuary, or hanging something in your office that silently says <strong>"I'm still here, and I'm still becoming"</strong> &mdash; this art was made for that exact moment.</p>
+
+    <p>We don't make art for everyone. We make art for <em>her</em>. And if you're reading this, it's probably for you.</p>
+
+    <div class="about-pullquote">"May these images remind you that you are held, you are seen, and your becoming is beautiful."</div>
+
+    <p>Every purchase is a digital download &mdash; print it at any size, frame it however you want, and let it transform your space into something that feels like exhaling.</p>
+  </div>
+
+  <section class="values-section">
+    <h2 class="values-title">What We <em>Believe</em></h2>
+    <div class="values-grid">
+      <div class="value-item">
+        <h3>Beauty as Healing</h3>
+        <p>Your environment shapes your spirit. Surrounding yourself with beauty isn't vanity &mdash; it's restoration.</p>
+      </div>
+      <div class="value-item">
+        <h3>Representation Matters</h3>
+        <p>Elegant, spiritual, peaceful Black femininity deserves to be on every wall, in every room, without explanation.</p>
+      </div>
+      <div class="value-item">
+        <h3>Softness Without Guilt</h3>
+        <p>You don't have to earn peace. You don't have to justify beauty. You deserve it simply because you exist.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <h2>Ready to Transform <em>Your Space?</em></h2>
+    <p>Browse the collection and find the piece that speaks to your spirit.</p>
+    <a href="/" class="btn-primary">Shop the Collection</a>
+  </section>
+
+  <footer>
+    &copy; 2026 Esi Prints. All rights reserved. &nbsp;|&nbsp; <a href="/">Shop</a> &nbsp;|&nbsp; <a href="contact.html">Contact</a>
+  </footer>
+
+</body>
+</html>

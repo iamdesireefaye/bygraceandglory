@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact | Esi Prints</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --gold: #c4a265; --gold-light: #d4b87a; --gold-dark: #a8884d;
+      --cream: #f5f0e8; --cream-dark: #ece4d6; --espresso: #2a1f14;
+      --charcoal: #1a1a1a; --white: #fefdfb;
+    }
+    body { font-family: 'Montserrat', sans-serif; background: var(--cream); color: var(--espresso); -webkit-font-smoothing: antialiased; }
+
+    nav {
+      padding: 1.5rem 3rem; display: flex; justify-content: space-between; align-items: center;
+      background: var(--cream); border-bottom: 1px solid rgba(196,162,101,0.2);
+    }
+    .nav-brand {
+      font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 500;
+      color: var(--espresso); letter-spacing: 0.08em; text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Montserrat', sans-serif; font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--espresso);
+      text-decoration: none; transition: color 0.3s;
+    }
+    .nav-links a:hover { color: var(--gold); }
+
+    .contact-page {
+      min-height: 80vh; display: flex; align-items: center; justify-content: center;
+      padding: 4rem 2rem;
+    }
+    .contact-card {
+      background: var(--white); max-width: 550px; width: 100%;
+      padding: 3.5rem; box-shadow: 0 10px 50px rgba(0,0,0,0.06);
+    }
+    .contact-eyebrow {
+      font-family: 'Montserrat', sans-serif; font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .contact-title {
+      font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 400; margin-bottom: 0.5rem;
+    }
+    .contact-title em { font-style: italic; font-weight: 300; }
+    .contact-desc {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300;
+      color: #6a5a4a; line-height: 1.6; margin-bottom: 2rem;
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-label {
+      display: block; font-family: 'Montserrat', sans-serif; font-size: 0.6rem;
+      font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      color: #8a7a6a; margin-bottom: 0.5rem;
+    }
+    .form-input, .form-textarea {
+      width: 100%; padding: 0.9rem 1rem; border: 1px solid var(--cream-dark);
+      font-family: 'Montserrat', sans-serif; font-size: 0.8rem; color: var(--espresso);
+      background: var(--cream); outline: none; transition: border-color 0.3s;
+    }
+    .form-input:focus, .form-textarea:focus { border-color: var(--gold); }
+    .form-textarea { min-height: 140px; resize: vertical; }
+    .form-submit {
+      width: 100%; padding: 1rem; font-family: 'Montserrat', sans-serif; font-size: 0.65rem;
+      font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--espresso); background: var(--gold); border: none; cursor: pointer;
+      transition: background 0.3s; margin-top: 0.5rem;
+    }
+    .form-submit:hover { background: var(--gold-light); }
+    .form-success {
+      text-align: center; padding: 2rem 0;
+      font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; color: var(--gold-dark);
+      line-height: 1.6;
+    }
+
+    footer {
+      background: var(--charcoal); padding: 2.5rem 3rem; text-align: center;
+      font-family: 'Montserrat', sans-serif; font-size: 0.6rem;
+      color: rgba(255,255,255,0.25); letter-spacing: 0.1em;
+    }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .contact-card { padding: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-brand">Esi Prints</a>
+    <ul class="nav-links">
+      <li><a href="/">Shop</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+  </nav>
+
+  <section class="contact-page">
+    <div class="contact-card">
+      <p class="contact-eyebrow">Get in Touch</p>
+      <h1 class="contact-title">Send Us a <em>Message</em></h1>
+      <p class="contact-desc">Questions about your order, a custom request, or just want to say hello? We'd love to hear from you.</p>
+
+      <form id="contactForm" onsubmit="handleContact(event)">
+        <div class="form-group">
+          <label class="form-label" for="contactName">Your Name</label>
+          <input type="text" class="form-input" id="contactName" required placeholder="First name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contactEmail">Your Email</label>
+          <input type="email" class="form-input" id="contactEmail" required placeholder="you@email.com">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="contactMessage">Message</label>
+          <textarea class="form-textarea" id="contactMessage" required placeholder="How can we help?"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 Esi Prints. All rights reserved. &nbsp;|&nbsp; <a href="/">Shop</a> &nbsp;|&nbsp; <a href="about.html">About</a>
+  </footer>
+
+  <script>
+    function handleContact(e) {
+      e.preventDefault();
+      const name = document.getElementById('contactName').value;
+      const email = document.getElementById('contactEmail').value;
+      const message = document.getElementById('contactMessage').value;
+
+      // Save locally
+      let msgs = JSON.parse(localStorage.getItem('bgag_messages') || '[]');
+      msgs.push({ name, email, message, date: new Date().toISOString() });
+      localStorage.setItem('bgag_messages', JSON.stringify(msgs));
+
+      // Send to Google Sheets via Apps Script
+      const SHEET_URL = 'GOOGLE_APPS_SCRIPT_URL';
+      if (SHEET_URL !== 'GOOGLE_APPS_SCRIPT_URL') {
+        fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'application/json'}, body: JSON.stringify({name, email, message, date: new Date().toISOString(), type: 'contact'}) });
+      }
+
+      document.getElementById('contactForm').innerHTML = '<div class="form-success">Thank you, ' + name + '. We received your message and will get back to you soon. <br><br>Grace & peace.</div>';
+    }
+  </script>
+
+</body>
+</html>

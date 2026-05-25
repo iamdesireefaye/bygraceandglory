@@ -613,7 +613,7 @@
     <div class="hero-content">
       <p class="hero-eyebrow">The Collection</p>
       <h1 class="hero-title">By Grace <em>& Glory</em></h1>
-      <p class="hero-subtitle">Faith-inspired digital wall art for the evolving woman</p>
+      <p class="hero-subtitle">Art for the woman who is healing, rising, and choosing to surround herself with beauty</p>
       <div class="hero-price-badge">Every Print $5 | Instant Download</div><br>
       <a href="#collection" class="btn-primary">Shop the Collection</a>
     </div>
@@ -738,16 +738,16 @@
   <section class="email-section" id="email">
     <div class="email-inner">
       <div class="email-text">
-        <p class="section-eyebrow" style="color:var(--gold);">Stay Connected</p>
-        <h2 class="email-title">Be the First to <em>Know</em></h2>
-        <p class="email-desc">New prints, exclusive bundles, and early access drops delivered to your inbox. Join the By Grace & Glory community.</p>
+        <p class="section-eyebrow" style="color:var(--gold);">For the Woman Becoming</p>
+        <h2 class="email-title">Free Prints, <em>Monthly</em></h2>
+        <p class="email-desc">Every month we release a free digital print exclusively for our community. Beautiful reminders of who you are and who you're becoming &mdash; delivered straight to your inbox.</p>
       </div>
       <form class="email-form" id="emailForm" onsubmit="handleEmailSubmit(event)">
         <div class="email-input-wrap">
           <input type="email" class="email-input" placeholder="Your email address" required id="emailInput">
-          <button type="submit" class="email-btn">Join the List</button>
+          <button type="submit" class="email-btn">Send Me the Free Print</button>
         </div>
-        <p class="email-privacy">We respect your privacy. Unsubscribe anytime.</p>
+        <p class="email-privacy">No spam. Just beauty, grace, and a free print each month.</p>
       </form>
     </div>
   </section>
@@ -756,24 +756,23 @@
   <footer>
     <div class="footer-top">
       <div>
-        <p class="footer-brand">By Grace & Glory</p>
-        <p class="footer-collection">Faith-Inspired Digital Art</p>
-        <p class="footer-tagline">Faith-inspired digital art for the woman who walks in grace and lives in glory. Every piece is a prayer made visible.</p>
+        <p class="footer-brand">Esi Prints</p>
+        <p class="footer-collection">By Grace & Glory Collection</p>
+        <p class="footer-tagline">Art for the woman who is healing, becoming, and choosing peace. Every piece is a prayer made visible.</p>
       </div>
       <div>
         <p class="footer-heading">Shop</p>
         <ul class="footer-links">
           <li><a href="#collection">Full Collection</a></li>
           <li><a href="#bundles">Bundles</a></li>
-          <li><a href="#">Custom Orders</a></li>
+          <li><a href="#email">Free Monthly Print</a></li>
         </ul>
       </div>
       <div>
         <p class="footer-heading">About</p>
         <ul class="footer-links">
-          <li><a href="#">Our Story</a></li>
-          <li><a href="#">The Artist</a></li>
-          <li><a href="#">FAQ</a></li>
+          <li><a href="about.html">Our Story</a></li>
+          <li><a href="about.html">The Artist</a></li>
         </ul>
       </div>
       <div>
@@ -781,11 +780,11 @@
         <ul class="footer-links">
           <li><a href="#">Instagram</a></li>
           <li><a href="#">Pinterest</a></li>
-          <li><a href="#">Email Us</a></li>
+          <li><a href="contact.html">Send a Message</a></li>
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">&copy; 2026 By Grace & Glory. All rights reserved. All artwork is for personal use only.</div>
+    <div class="footer-bottom">&copy; 2026 Esi Prints. All rights reserved. All artwork is for personal use only.</div>
   </footer>
 
   <!-- Lightbox -->
@@ -1106,15 +1105,20 @@
       });
     }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
 
-    // ══════════════ EMAIL SIGNUP ══════════════
+    // ══════════════ EMAIL SIGNUP (Google Sheets) ══════════════
     function handleEmailSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('emailInput').value;
-      // Store emails locally until you connect Payhip/Mailchimp/Kit
+      // Save locally as backup
       let emails = JSON.parse(localStorage.getItem('bgag_emails') || '[]');
       emails.push({ email, date: new Date().toISOString() });
       localStorage.setItem('bgag_emails', JSON.stringify(emails));
-      document.getElementById('emailForm').innerHTML = '<p class="email-success">Welcome to the family. Watch your inbox for something beautiful.</p>';
+      // Send to Google Sheets via Apps Script
+      const SHEET_URL = 'GOOGLE_APPS_SCRIPT_URL';
+      if (SHEET_URL !== 'GOOGLE_APPS_SCRIPT_URL') {
+        fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'application/json'}, body: JSON.stringify({email, date: new Date().toISOString(), source: 'website'}) });
+      }
+      document.getElementById('emailForm').innerHTML = '<p class="email-success">Welcome, sis. Your first free print is on its way.</p>';
       showToast('You\'re on the list!');
     }
 

@@ -1114,8 +1114,8 @@
       emails.push({ email, date: new Date().toISOString() });
       localStorage.setItem('bgag_emails', JSON.stringify(emails));
       // Send to Google Sheets via Apps Script
-      const SHEET_URL = 'GOOGLE_APPS_SCRIPT_URL';
-      if (SHEET_URL !== 'GOOGLE_APPS_SCRIPT_URL') {
+      const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzAIoTOWVYAaaJc3JADQYmkFUnn_jZKofIUpOIATvPpjVAvLOCePEWcdV23HgAPROzYMQ/exec';
+      if (SHEET_URL !== 'https://script.google.com/macros/s/AKfycbzAIoTOWVYAaaJc3JADQYmkFUnn_jZKofIUpOIATvPpjVAvLOCePEWcdV23HgAPROzYMQ/exec') {
         fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'application/json'}, body: JSON.stringify({email, date: new Date().toISOString(), source: 'website'}) });
       }
       document.getElementById('emailForm').innerHTML = '<p class="email-success">Welcome, sis. Your first free print is on its way.</p>';

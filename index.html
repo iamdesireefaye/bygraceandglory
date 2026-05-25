@@ -667,7 +667,7 @@
           <li>Mix & match any category</li>
           <li>Instant delivery</li>
         </ul>
-        <button class="bundle-btn bundle-btn-outline" onclick="addBundle('The Grace Edit', 25)">Add to Cart</button>
+        <button class="bundle-btn bundle-btn-outline" onclick="window.open(bundleLinks.grace,'_blank')">Buy Now</button>
       </div>
       <div class="bundle-card featured">
         <span class="bundle-badge">Best Value</span>
@@ -684,7 +684,7 @@
           <li>Instant delivery</li>
           <li>Bonus: gallery wall guide</li>
         </ul>
-        <button class="bundle-btn bundle-btn-primary" onclick="addBundle('The Glory Bundle', 55)">Add to Cart</button>
+        <button class="bundle-btn bundle-btn-primary" onclick="window.open(bundleLinks.glory,'_blank')">Buy Now</button>
       </div>
       <div class="bundle-card">
         <div class="bundle-name">The Full Testimony</div>
@@ -700,7 +700,7 @@
           <li>Instant delivery</li>
           <li>Bonus: gallery wall guide</li>
         </ul>
-        <button class="bundle-btn bundle-btn-outline" onclick="addBundle('The Full Testimony', 99)">Add to Cart</button>
+        <button class="bundle-btn bundle-btn-outline" onclick="window.open(bundleLinks.full,'_blank')">Buy Now</button>
       </div>
     </div>
   </section>
@@ -921,6 +921,19 @@
       littles: 'The Littles'
     };
 
+    // Stripe Payment Links
+    const stripeLinks = {"hf_20260520_021442_048755e3-f9e7-481a-ba60-85f68814ef1c":"https://buy.stripe.com/00w5kw9nd5J57UN2ct5Vu00","hf_20260520_021539_77248a32-d25b-4faa-9b57-31ab2e9116b9":"https://buy.stripe.com/aFaeV6eHx8Vh1wp6sJ5Vu01","hf_20260520_022043_edd5841d-c95d-43cb-8b08-29188cd69a83":"https://buy.stripe.com/3cI28k2YPgnJ4IB04l5Vu02","hf_20260520_022106_589ed4ba-8772-4e58-8df6-f6dac9ed5ef6":"https://buy.stripe.com/3cI9AMczp5J5fnf7wN5Vu03","hf_20260522_014701_2630de47-351c-4ced-a62f-7c7bab547c4c":"https://buy.stripe.com/6oU9AM7f53AX7UN9EV5Vu04","hf_20260522_014904_54a76800-8bf9-4282-8766-16c77df81038":"https://buy.stripe.com/aFa6oA1UL4F17UN4kB5Vu05","hf_20260522_015705_b526302d-0d11-4bfb-985b-6a1ce7ab2517":"https://buy.stripe.com/4gMfZabvl6N96QJ2ct5Vu06","hf_20260522_015722_7bffd1bd-80f0-4332-bb77-4534024f2b3e":"https://buy.stripe.com/5kQ00c0QH5J57UN4kB5Vu07","hf_20260522_015737_7c2021dc-a2d0-4ee1-b4ae-778fc9fbb94a":"https://buy.stripe.com/cNi4gseHxb3pgrj9EV5Vu08","hf_20260522_015752_0ba5e6d9-4224-4377-b0e1-c20d26c4510c":"https://buy.stripe.com/7sY8wI1ULdbx6QJ6sJ5Vu09","hf_20260522_020144_ef89dcc5-fc0d-412c-8ab3-66e847a012e2":"https://buy.stripe.com/7sYdR256X0oL7UNbN35Vu0a","hf_20260522_020211_41e4cb28-78e0-4eef-b325-197877340677":"https://buy.stripe.com/3cI4gsgPFc7t7UN6sJ5Vu0b","hf_20260522_020253_4f332a66-8c17-47a5-8b5a-aa4bbf868919":"https://buy.stripe.com/dRmcMYdDtfjFa2V18p5Vu0c","hf_20260522_020315_aecc046c-69d1-4485-95e0-cdc143696d98":"https://buy.stripe.com/14AfZa8j98Vh8YR8AR5Vu0d","hf_20260522_020330_898f1c70-47d0-42de-9d8b-f531ef1327e0":"https://buy.stripe.com/4gM9AMeHxgnJa2VeZf5Vu0e","hf_20260522_020417_09aa00af-6307-4855-a88d-ffb9e1e4a8ca":"https://buy.stripe.com/cNi00ceHxb3p5MFdVb5Vu0f","hf_20260522_020429_647f480e-b736-44fe-9189-90f87871375e":"https://buy.stripe.com/6oU9AMbvl3AX6QJg3j5Vu0g","hf_20260520_021554_aa85a339-8d57-4ef3-84ba-d209bfcce844":"https://buy.stripe.com/4gM28kbvl0oL5MF5oF5Vu0h","hf_20260520_021940_c5e3f0bf-88e0-461e-bf9a-9e6a4de371fa":"https://buy.stripe.com/eVq14g1UL5J55MF3gx5Vu0i","hf_20260520_022131_ea41b2b3-e089-4ebc-99c7-e79dfe6c2865":"https://buy.stripe.com/eVq8wI1UL1sP3ExcR75Vu0j","hf_20260522_014806_4f9fd4c5-0254-4fac-909a-cfd3f07f5de2":"https://buy.stripe.com/bJe7sE0QH1sP4IBcR75Vu0k","hf_20260522_015948_20ecd233-ec63-4d1f-a680-6dd7a31e4bd9":"https://buy.stripe.com/00w5kwdDtc7t3Ex18p5Vu0l","hf_20260524_230958_669dda51-7d78-485e-8e6d-3a36afd5f5f6":"https://buy.stripe.com/4gMcMY1UL0oL2At3gx5Vu0m","hf_20260525_012647_9a017adb-0f97-4fb7-af76-4b59e3b14e8b":"https://buy.stripe.com/cNibIU9nd6N9df76sJ5Vu0n","hf_20260525_012728_77551364-fa24-4844-b4b3-3f59b493a0ab":"https://buy.stripe.com/3cI5kw2YPc7t4IB2ct5Vu0o","hf_20260525_013351_857f811c-f3ec-4d2f-b1f3-4427d4d80bd9":"https://buy.stripe.com/7sYeV6czp4F1b6ZeZf5Vu0p","hf_20260525_013400_4d9c8e94-bc60-4eb9-9897-bfd9e6f6f960":"https://buy.stripe.com/dRmaEQ42TgnJ6QJcR75Vu0q","hf_20260520_021522_fa211fb0-e899-49c6-bd3e-003e4e00fef8":"https://buy.stripe.com/cNi6oAarhgnJfnf2ct5Vu0r","hf_20260522_014953_9b33bfd7-ae2a-4654-a13c-68f4dc500dbd":"https://buy.stripe.com/fZu9AMdDt5J55MF04l5Vu0s","hf_20260522_015031_9b998a38-402d-431b-b6ca-5276ccf13a71":"https://buy.stripe.com/7sYaEQbvl1sPejb04l5Vu0t","hf_20260522_020033_bc2813eb-0ed4-4672-9e70-5f75ee47f0d3":"https://buy.stripe.com/dRmcMYarh4F1a2V18p5Vu0u","hf_20260524_234854_c20d59a6-1188-42a8-ba2e-4c8203ca1dac":"https://buy.stripe.com/4gMaEQ8j97Rd6QJ4kB5Vu0v","hf_20260524_230914_ef3f99b2-7dda-48f6-96fb-b5a46baccd88":"https://buy.stripe.com/4gM8wI42T9Zlcb32ct5Vu0w","hf_20260522_020131_cdeec9c8-ff15-4de0-baa1-287479f8673e":"https://buy.stripe.com/3cI14gdDt9Zl8YR2ct5Vu0x","hf_20260524_231138_d2a8eb83-8e96-483b-a60d-b3b2d2ffacc4":"https://buy.stripe.com/3cIeV6bvlgnJ7UNbN35Vu0y","hf_20260524_231218_37b6cac6-3a7f-4f43-b32d-9252f891fa15":"https://buy.stripe.com/4gMaEQ9ndb3pgrjeZf5Vu0z","hf_20260524_233633_f98e9674-a8a5-4f84-ae6b-232c8569d12e":"https://buy.stripe.com/eVq8wI1ULc7t7UN9EV5Vu0A","hf_20260524_233918_6f4f2b1a-6520-4ca0-8840-e3a9f5125fb8":"https://buy.stripe.com/7sY00c56X4F16QJbN35Vu0B","hf_20260524_234538_a5b5e740-6e09-4468-b526-10f860dfb166":"https://buy.stripe.com/7sY6oAdDtfjF1wp3gx5Vu0C","hf_20260524_234803_29a46dc9-b382-442d-a695-8188523f6bac":"https://buy.stripe.com/fZuaEQ9nd4F1fnf2ct5Vu0D","hf_20260524_235128_53effd78-9d2f-47bb-975a-a8893bde6185":"https://buy.stripe.com/dRm28k42T2wT0sl04l5Vu0E","hf_20260524_235147_58030cfd-786f-421d-b791-f3e2fc1d6006":"https://buy.stripe.com/eVqeV60QHc7t6QJ3gx5Vu0F","hf_20260524_235312_61697ba2-3087-4af8-a365-619032151051":"https://buy.stripe.com/14A4gsarhgnJejbbN35Vu0G","hf_20260524_235437_19f028e4-9587-49cc-8422-7b2f6eb8e9b2":"https://buy.stripe.com/14A5kwdDt6N9fnfdVb5Vu0R","hf_20260525_015911_af38e4ca-5c3b-45c1-846c-6d76964bc002":"https://buy.stripe.com/3cI8wI1UL2wTejbeZf5Vu0I","hf_20260525_020522_a5c4e743-c709-4065-bc8d-5b1cf2eaa4f8":"https://buy.stripe.com/cNidR256X7Rd4IB6sJ5Vu0J","hf_20260520_005942_75c0cb3e-c5f2-47a0-b1ad-212ae8d916a8":"https://buy.stripe.com/fZu14g8j92wTcb32ct5Vu0K","hf_20260522_014517_025d89ba-df5e-4559-a559-ce9c6583b7e7":"https://buy.stripe.com/fZu5kw9ndgnJ1wpeZf5Vu0L","hf_20260522_014938_fbe7937a-230c-4a90-bdec-c6f24dd7e231":"https://buy.stripe.com/9B628kgPF0oLgrj9EV5Vu0M","hf_20260524_235020_c18521b2-6c03-4998-ab6c-e926eebfdc59":"https://buy.stripe.com/14A6oAfLBb3pb6ZdVb5Vu0N","hf_20260524_235103_0ec462dd-5964-42c1-9572-abc6a5300239":"https://buy.stripe.com/3cI4gs0QH9Zl2AteZf5Vu0O","hf_20260524_235114_61c09e09-b422-44ae-a721-938f70d1cbbc":"https://buy.stripe.com/9B6bIU2YPdbx5MF3gx5Vu0P","hf_20260524_235338_789babc4-93d7-470f-8cc4-f192e4d2673c":"https://buy.stripe.com/bJe7sEczpb3p7UN6sJ5Vu0Q","hf_20260524_234909_d8ec862f-bc7f-4899-91b9-01d48a28efbb":"https://buy.stripe.com/28E5kw1ULdbxgrj7wN5Vu0S","hf_20260524_234817_36916bf3-1bb4-4da2-bef8-d8468ddd5e1f":"https://buy.stripe.com/6oU4gsgPF4F14IBbN35Vu0T","hf_20260524_235822_541a7c58-a512-4377-8d7d-c3b50637f778":"https://buy.stripe.com/eVqaEQdDt0oLgrj04l5Vu0U","hf_20260525_004650_e09b6415-e642-4b5e-bfed-82e07610a613":"https://buy.stripe.com/8x2fZa6b19Zlb6Z9EV5Vu0V","hf_20260525_005208_d9f5193a-46df-4710-b72a-d64fbfc49554":"https://buy.stripe.com/9B67sE0QH7Rd1wp5oF5Vu0W","hf_20260525_005414_d61bb3ee-e9fa-4677-912c-aff06c198ba9":"https://buy.stripe.com/9B6dR2gPFfjFcb3aIZ5Vu0X","hf_20260525_010537_519e006e-0060-4a5e-9c6d-c8f4dd9f020d":"https://buy.stripe.com/6oUcMYgPF3AX8YR7wN5Vu0Y","hf_20260525_013051_52e78868-526e-49cd-b7bf-aecaacc4e4ea":"https://buy.stripe.com/3cI6oA6b17Rd0slbN35Vu0Z","hf_20260525_004422_9b09f014-3dfe-4137-9b55-a69290a1fd90":"https://buy.stripe.com/cNi28k7f55J5grj9EV5Vu10","hf_20260525_004605_d8267d34-44f8-4d21-9865-f195bb52ccd2":"https://buy.stripe.com/aFa14g6b18Vhb6Z4kB5Vu11","hf_20260525_012425_fbe7f757-8ae0-45b0-b8e3-06e267b180ae":"https://buy.stripe.com/14A4gs7f5c7tfnf9EV5Vu12","hf_20260525_013719_163c4dc1-da8d-43c6-9253-18361ed7735a":"https://buy.stripe.com/3cIbIU42T4F1df7bN35Vu13"};
+    const bundleLinks = {
+      grace: "https://buy.stripe.com/aFacMYfLB0oLa2VcR75Vu14",
+      glory: "https://buy.stripe.com/fZu4gs0QH8Vh0sldVb5Vu15",
+      full: "https://buy.stripe.com/8x25kw1ULc7t2At18p5Vu16"
+    };
+
+    function getStripeLink(fileKey) {
+      const key = fileKey.replace('.jpg','');
+      return stripeLinks[key] || '#';
+    }
+
     let currentFilter = 'all';
     let cart = [];
 
@@ -951,7 +964,7 @@
                   <div class="product-card-img">
                     <img src="img/${p.file}" alt="${p.name}" loading="lazy">
                     <div class="product-card-overlay">
-                      <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${globalIdx})">Add to Cart</button>
+                      <button class="add-to-cart-btn" onclick="event.stopPropagation(); window.open(getStripeLink('${p.file}'),'_blank')">Buy Now - $5</button>
                     </div>
                   </div>
                   <div class="product-card-info">
@@ -1052,7 +1065,7 @@
       document.getElementById('lightboxImg').src = `img/${p.file}`;
       document.getElementById('lightboxTitle').textContent = p.name;
       document.getElementById('lightboxCat').textContent = p.catLabel;
-      document.getElementById('lightboxAdd').onclick = () => { addToCart(idx); };
+      document.getElementById('lightboxAdd').onclick = () => { window.open(getStripeLink(p.file),'_blank'); };
       document.getElementById('lightbox').classList.add('active');
       document.body.style.overflow = 'hidden';
     }

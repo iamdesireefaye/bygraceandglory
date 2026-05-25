@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Download | By Grace & Glory</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,400&family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --gold: #c4a265; --gold-light: #d4b87a; --cream: #f5f0e8;
+      --espresso: #2a1f14; --white: #fefdfb; --plum: #3d2244;
+    }
+    body {
+      font-family: 'Montserrat', sans-serif; background: var(--cream);
+      color: var(--espresso); min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 2rem; text-align: center;
+    }
+    .download-card {
+      background: var(--white); max-width: 550px; width: 100%;
+      padding: 3rem; box-shadow: 0 10px 50px rgba(0,0,0,0.08);
+    }
+    .download-icon {
+      width: 60px; height: 60px; margin: 0 auto 1.5rem;
+      background: var(--gold); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .download-icon svg { stroke: var(--white); }
+    .download-title {
+      font-family: 'Playfair Display', serif; font-size: 2rem;
+      font-weight: 400; margin-bottom: 0.5rem;
+    }
+    .download-title em { font-style: italic; font-weight: 300; }
+    .download-subtitle {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+      color: #8a7a6a; margin-bottom: 2rem; line-height: 1.6;
+    }
+    .download-print-name {
+      font-family: 'Playfair Display', serif; font-size: 1.3rem;
+      color: var(--gold); margin-bottom: 1.5rem; font-style: italic;
+    }
+    .download-btn {
+      display: inline-block; font-family: 'Montserrat', sans-serif;
+      font-size: 0.7rem; font-weight: 600; letter-spacing: 0.25em;
+      text-transform: uppercase; color: var(--espresso); background: var(--gold);
+      padding: 1rem 3rem; border: none; cursor: pointer; text-decoration: none;
+      transition: all 0.3s;
+    }
+    .download-btn:hover { background: var(--gold-light); }
+    .download-note {
+      font-size: 0.65rem; color: #bbb; margin-top: 1.5rem; line-height: 1.7;
+    }
+    .download-back {
+      margin-top: 2rem; font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem; color: var(--gold);
+    }
+    .download-back a { color: var(--gold); text-decoration: none; }
+    .download-back a:hover { text-decoration: underline; }
+    .download-error {
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem;
+      color: #c77; line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="download-card" id="downloadCard">
+    <div class="download-icon">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke-width="2">
+        <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+        <polyline points="7 10 12 15 17 10"/>
+        <line x1="12" y1="15" x2="12" y2="3"/>
+      </svg>
+    </div>
+    <h1 class="download-title">Thank <em>You</em></h1>
+    <p class="download-subtitle">Your purchase is complete. Your digital art print is ready for download.</p>
+    <div class="download-print-name" id="printName"></div>
+    <a class="download-btn" id="downloadBtn" href="#" target="_blank">Download Your Print</a>
+    <p class="download-note">
+      This is a high-resolution digital file. Print at home, at a local print shop,
+      or upload to an online printer. For best results, print on archival matte paper.
+      <br><br>Need help? Email us at hello@esiprints.shop
+    </p>
+  </div>
+
+  <p class="download-back"><a href="/">Continue Shopping</a></p>
+
+  <script>
+    // Map file keys to Google Drive file IDs
+    // These will be populated once the PNGs are uploaded to Drive
+    const driveFiles = {
+      "hf_20260525_020522_a5c4e743-c709-4065-bc8d-5b1cf2eaa4f8": "1Q5NvZAD5oflwW1YJXjuJEkqT0lg3q2ei",
+      "hf_20260525_015911_af38e4ca-5c3b-45c1-846c-6d76964bc002": "15YKo_PdNcP_c3J27112L-VxqDKlKhfUN",
+      "hf_20260525_013719_163c4dc1-da8d-43c6-9253-18361ed7735a": "1T9JMBZmrdPZXVkjEuxJu8AchVFhJ0Bcl",
+      "hf_20260525_013400_4d9c8e94-bc60-4eb9-9897-bfd9e6f6f960": "1TJ6F_k7fX_GTiNYAEe0dcWBM0VhPJdgL",
+      "hf_20260525_013351_857f811c-f3ec-4d2f-b1f3-4427d4d80bd9": "1Va5twgsvs9NPU0O04eOOY7C6AFzTo_7g",
+      "hf_20260525_013051_52e78868-526e-49cd-b7bf-aecaacc4e4ea": "1-mMAJPewCIwsBYpcx5eJ_IGAn2xxQAhA",
+      "hf_20260525_012728_77551364-fa24-4844-b4b3-3f59b493a0ab": "1Ec_tzg1a3mq9yjHheuo6IwLuBSm8jBlo",
+      "hf_20260525_012647_9a017adb-0f97-4fb7-af76-4b59e3b14e8b": "1Nt7WsKl9TLMUHzM7S9ckSG03dhqc8_nY",
+      "hf_20260525_012425_fbe7f757-8ae0-45b0-b8e3-06e267b180ae": "1VI-LevE2yabx9DB8HCbKXh99Ph3XSToe",
+      "hf_20260525_005414_d61bb3ee-e9fa-4677-912c-aff06c198ba9": "1MsWs7j9QL-d8b-5UldQQCQ5u8HIoZpWV",
+    };
+
+    // Fallback: link to the shared Drive folder for any unmapped files
+    const DRIVE_FOLDER = "https://drive.google.com/drive/folders/1-x9iooiVi9szfWKJkd_lMcjgXuJ8uhAn";
+
+    // Print names (same as main site)
+    const printNames = {
+      "hf_20260520_005942_75c0cb3e-c5f2-47a0-b1ad-212ae8d916a8": "Heart Balloons",
+      "hf_20260520_021442_048755e3-f9e7-481a-ba60-85f68814ef1c": "For I Know the Plans",
+      "hf_20260520_021522_fa211fb0-e899-49c6-bd3e-003e4e00fef8": "Crowned in Bloom",
+      "hf_20260520_021539_77248a32-d25b-4faa-9b57-31ab2e9116b9": "God Is Within Her",
+      "hf_20260520_021554_aa85a339-8d57-4ef3-84ba-d209bfcce844": "Violet Wings",
+      "hf_20260520_021940_c5e3f0bf-88e0-461e-bf9a-9e6a4de371fa": "Garden Whisper",
+      "hf_20260520_022043_edd5841d-c95d-43cb-8b08-29188cd69a83": "She Will Not Fall",
+      "hf_20260520_022106_589ed4ba-8772-4e58-8df6-f6dac9ed5ef6": "Soar on Wings Like Eagles",
+      "hf_20260520_022131_ea41b2b3-e089-4ebc-99c7-e79dfe6c2865": "Leopard & Butterflies",
+      "hf_20260522_014517_025d89ba-df5e-4559-a559-ce9c6583b7e7": "Heart Balloons II",
+      "hf_20260522_014701_2630de47-351c-4ced-a62f-7c7bab547c4c": "Write the Vision",
+      "hf_20260522_014806_4f9fd4c5-0254-4fac-909a-cfd3f07f5de2": "Veiled in Wings",
+      "hf_20260522_014904_54a76800-8bf9-4282-8766-16c77df81038": "For I Know the Plans II",
+      "hf_20260522_014938_fbe7937a-230c-4a90-bdec-c6f24dd7e231": "Candlelit Hands",
+      "hf_20260522_014953_9b33bfd7-ae2a-4654-a13c-68f4dc500dbd": "The Queen's Throne",
+      "hf_20260522_015031_9b998a38-402d-431b-b6ca-5276ccf13a71": "Wings of Worship",
+      "hf_20260522_015705_b526302d-0d11-4bfb-985b-6a1ce7ab2517": "The Plans I Have",
+      "hf_20260522_015722_7bffd1bd-80f0-4332-bb77-4534024f2b3e": "God Is Within Her II",
+      "hf_20260522_015737_7c2021dc-a2d0-4ee1-b4ae-778fc9fbb94a": "Soar on Wings II",
+      "hf_20260522_015752_0ba5e6d9-4224-4377-b0e1-c20d26c4510c": "Write the Vision II",
+      "hf_20260522_015948_20ecd233-ec63-4d1f-a680-6dd7a31e4bd9": "Sepia Butterfly Mask",
+      "hf_20260522_020033_bc2813eb-0ed4-4672-9e70-5f75ee47f0d3": "Floral Crown",
+      "hf_20260522_020131_cdeec9c8-ff15-4de0-baa1-287479f8673e": "Fearfully & Wonderfully Made",
+      "hf_20260522_020144_ef89dcc5-fc0d-412c-8ab3-66e847a012e2": "He Rejoices Over You",
+      "hf_20260522_020211_41e4cb28-78e0-4eef-b325-197877340677": "No Weapon Formed",
+      "hf_20260522_020253_4f332a66-8c17-47a5-8b5a-aa4bbf868919": "For Such a Time",
+      "hf_20260522_020315_aecc046c-69d1-4485-95e0-cdc143696d98": "His Mercies Are New",
+      "hf_20260522_020330_898f1c70-47d0-42de-9d8b-f531ef1327e0": "Windows of Heaven",
+      "hf_20260522_020417_09aa00af-6307-4855-a88d-ffb9e1e4a8ca": "Pour Out a Blessing",
+      "hf_20260522_020429_647f480e-b736-44fe-9189-90f87871375e": "Head and Not the Tail",
+      "hf_20260524_230914_ef3f99b2-7dda-48f6-96fb-b5a46baccd88": "Sunflower Joy",
+      "hf_20260524_230958_669dda51-7d78-485e-8e6d-3a36afd5f5f6": "Emerald Butterfly",
+      "hf_20260524_231138_d2a8eb83-8e96-483b-a60d-b3b2d2ffacc4": "Love Letters",
+      "hf_20260524_231218_37b6cac6-3a7f-4f43-b32d-9252f891fa15": "Candlelit Reading",
+      "hf_20260524_233633_f98e9674-a8a5-4f84-ae6b-232c8569d12e": "Held Close",
+      "hf_20260524_233918_6f4f2b1a-6520-4ca0-8840-e3a9f5125fb8": "Sunday Rest",
+      "hf_20260524_234538_a5b5e740-6e09-4468-b526-10f860dfb166": "Letters from God",
+      "hf_20260524_234803_29a46dc9-b382-442d-a695-8188523f6bac": "Resting in the Word",
+      "hf_20260524_234817_36916bf3-1bb4-4da2-bef8-d8468ddd5e1f": "Afternoon Light",
+      "hf_20260524_234854_c20d59a6-1188-42a8-ba2e-4c8203ca1dac": "Midnight Crown",
+      "hf_20260524_234909_d8ec862f-bc7f-4899-91b9-01d48a28efbb": "The Photographer",
+      "hf_20260524_235020_c18521b2-6c03-4998-ab6c-e926eebfdc59": "Morning Cup",
+      "hf_20260524_235103_0ec462dd-5964-42c1-9572-abc6a5300239": "New Morning",
+      "hf_20260524_235114_61c09e09-b422-44ae-a721-938f70d1cbbc": "Linen Morning",
+      "hf_20260524_235128_53effd78-9d2f-47bb-975a-a8893bde6185": "Butterfly Devotion",
+      "hf_20260524_235147_58030cfd-786f-421d-b791-f3e2fc1d6006": "Art Studio Devotion",
+      "hf_20260524_235312_61697ba2-3087-4af8-a365-619032151051": "Garden of the Word",
+      "hf_20260524_235338_789babc4-93d7-470f-8cc4-f192e4d2673c": "Morning Window",
+      "hf_20260524_235348_dcac8638-ccfc-4cee-a396-8b0ff876778d": "Mirror Reflection",
+      "hf_20260524_235437_19f028e4-9587-49cc-8422-7b2f6eb8e9b2": "Illuminated",
+      "hf_20260524_235822_541a7c58-a512-4377-8d7d-c3b50637f778": "Urban Jungle",
+      "hf_20260525_004422_9b09f014-3dfe-4137-9b55-a69290a1fd90": "Braids & Butterflies",
+      "hf_20260525_004605_d8267d34-44f8-4d21-9865-f195bb52ccd2": "Beaded Braids",
+      "hf_20260525_004650_e09b6415-e642-4b5e-bfed-82e07610a613": "The Botanist",
+      "hf_20260525_005208_d9f5193a-46df-4710-b72a-d64fbfc49554": "CEO Morning",
+      "hf_20260525_005414_d61bb3ee-e9fa-4677-912c-aff06c198ba9": "Plant Shop",
+      "hf_20260525_010537_519e006e-0060-4a5e-9c6d-c8f4dd9f020d": "First Class",
+      "hf_20260525_012425_fbe7f757-8ae0-45b0-b8e3-06e267b180ae": "Sister Sister",
+      "hf_20260525_012647_9a017adb-0f97-4fb7-af76-4b59e3b14e8b": "Monarch Veil",
+      "hf_20260525_012728_77551364-fa24-4844-b4b3-3f59b493a0ab": "Monarch Veil II",
+      "hf_20260525_013051_52e78868-526e-49cd-b7bf-aecaacc4e4ea": "Sunset Dinner",
+      "hf_20260525_013351_857f811c-f3ec-4d2f-b1f3-4427d4d80bd9": "Monarch Surrender",
+      "hf_20260525_013400_4d9c8e94-bc60-4eb9-9897-bfd9e6f6f960": "Purple Monarchs",
+      "hf_20260525_013719_163c4dc1-da8d-43c6-9253-18361ed7735a": "Side by Side",
+      "hf_20260525_015911_af38e4ca-5c3b-45c1-846c-6d76964bc002": "Holy Bible & Leopard",
+      "hf_20260525_020522_a5c4e743-c709-4065-bc8d-5b1cf2eaa4f8": "Evening Devotion",
+    };
+
+    // Parse URL params
+    const params = new URLSearchParams(window.location.search);
+    const fileKey = params.get('purchased');
+
+    if (fileKey && fileKey !== 'bundle') {
+      const name = printNames[fileKey] || 'Your Print';
+      document.getElementById('printName').textContent = '"' + name + '"';
+
+      // If we have a Drive ID, link directly; otherwise link to folder
+      const driveId = driveFiles[fileKey];
+      if (driveId) {
+        document.getElementById('downloadBtn').href = 'https://drive.google.com/uc?export=download&id=' + driveId;
+      } else {
+        // Fallback: open the shared folder
+        document.getElementById('downloadBtn').href = DRIVE_FOLDER;
+        document.getElementById('downloadBtn').textContent = 'Access Your Download';
+      }
+    } else if (fileKey === 'bundle') {
+      document.getElementById('printName').textContent = 'Your Bundle';
+      document.getElementById('downloadBtn').href = DRIVE_FOLDER;
+      document.getElementById('downloadBtn').textContent = 'Access All Your Prints';
+      document.querySelector('.download-subtitle').textContent = 'Your bundle purchase is complete. Access your prints in the link below.';
+    } else {
+      document.getElementById('downloadCard').innerHTML = '<p class="download-error">No purchase detected. If you just completed a purchase, please check your email for the download link, or contact hello@esiprints.shop</p>';
+    }
+  </script>
+</body>
+</html>

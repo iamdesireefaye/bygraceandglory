@@ -1,0 +1,5 @@
+create-products.sh
+create-stripe-products.py
+stripe-products.json
+product-ids.json
+.DS_Store

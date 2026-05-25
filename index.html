@@ -1,0 +1,1117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>By Grace & Glory | Faith-Inspired Digital Wall Art</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --gold: #c4a265;
+      --gold-light: #d4b87a;
+      --gold-dark: #a8884d;
+      --cream: #f5f0e8;
+      --cream-dark: #ece4d6;
+      --espresso: #2a1f14;
+      --charcoal: #1a1a1a;
+      --plum: #3d2244;
+      --teal-deep: #1a3a3a;
+      --white: #fefdfb;
+      --font-display: 'Playfair Display', serif;
+      --font-heading: 'Cormorant Garamond', serif;
+      --font-body: 'Montserrat', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--espresso);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ═══════════════════ NAV ═══════════════════ */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      padding: 1.5rem 3rem;
+      display: flex; justify-content: space-between; align-items: center;
+      transition: all 0.5s ease;
+    }
+    nav.scrolled {
+      background: rgba(245, 240, 232, 0.96);
+      backdrop-filter: blur(20px);
+      padding: 1rem 3rem;
+      box-shadow: 0 1px 0 rgba(196, 162, 101, 0.2);
+    }
+    .nav-brand {
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 500;
+      color: var(--white); letter-spacing: 0.08em; text-decoration: none;
+      transition: color 0.5s ease;
+    }
+    nav.scrolled .nav-brand { color: var(--espresso); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--font-body); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.3s;
+    }
+    nav.scrolled .nav-links a { color: var(--espresso); }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-cart {
+      position: relative; background: none; border: none; cursor: pointer; padding: 0.3rem;
+    }
+    .nav-cart svg { transition: all 0.3s; }
+    nav.scrolled .nav-cart svg { stroke: var(--espresso); }
+    .cart-count {
+      position: absolute; top: -4px; right: -8px;
+      background: var(--gold); color: var(--white);
+      font-family: var(--font-body); font-size: 0.55rem; font-weight: 700;
+      width: 16px; height: 16px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; transition: opacity 0.3s;
+    }
+    .cart-count.show { opacity: 1; }
+    .mobile-menu-btn { display: none; background: none; border: none; cursor: pointer; padding: 0.5rem; }
+    .mobile-menu-btn span { display: block; width: 24px; height: 1.5px; background: var(--white); margin: 5px 0; transition: all 0.3s; }
+    nav.scrolled .mobile-menu-btn span { background: var(--espresso); }
+
+    /* ═══════════════════ HERO ═══════════════════ */
+    .hero {
+      position: relative; height: 100vh; min-height: 700px;
+      display: flex; align-items: flex-end; justify-content: center; overflow: hidden;
+    }
+    .hero-image-container { position: absolute; inset: 0; z-index: 0; }
+    .hero-image-container img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(26,26,26,0.15) 0%, rgba(26,26,26,0) 30%, rgba(26,26,26,0.2) 60%, rgba(42,31,20,0.88) 100%);
+    }
+    .hero-content { position: relative; z-index: 2; text-align: center; padding: 0 2rem 8vh; max-width: 800px; }
+    .hero-eyebrow {
+      font-family: var(--font-body); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold-light); margin-bottom: 1.5rem;
+    }
+    .hero-title {
+      font-family: var(--font-display); font-size: clamp(3rem, 6vw, 5.5rem);
+      font-weight: 400; color: var(--white); line-height: 1.1; margin-bottom: 1.25rem;
+    }
+    .hero-title em { font-style: italic; font-weight: 300; }
+    .hero-subtitle {
+      font-family: var(--font-heading); font-size: clamp(1.1rem, 2vw, 1.4rem);
+      font-weight: 300; color: rgba(255,255,255,0.8); letter-spacing: 0.03em; margin-bottom: 1rem;
+    }
+    .hero-price-badge {
+      display: inline-block; font-family: var(--font-body); font-size: 0.75rem;
+      font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--espresso); background: var(--gold-light);
+      padding: 0.5rem 1.5rem; margin-bottom: 2rem;
+    }
+    .btn-primary {
+      display: inline-block; font-family: var(--font-body); font-size: 0.7rem; font-weight: 600;
+      letter-spacing: 0.25em; text-transform: uppercase; color: var(--espresso);
+      background: var(--gold); padding: 1rem 3rem; border: none; cursor: pointer;
+      text-decoration: none; transition: all 0.4s ease;
+    }
+    .btn-primary:hover { background: var(--gold-light); transform: translateY(-1px); box-shadow: 0 8px 30px rgba(196,162,101,0.3); }
+
+    /* ═══════════════════ MARQUEE ═══════════════════ */
+    .marquee-bar { background: var(--espresso); padding: 0.85rem 0; overflow: hidden; white-space: nowrap; }
+    .marquee-track { display: flex; animation: marquee 45s linear infinite; }
+    .marquee-track span {
+      font-family: var(--font-heading); font-size: 0.85rem; font-weight: 400;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); padding: 0 3rem; flex-shrink: 0;
+    }
+    .marquee-track span::after { content: '\2726'; margin-left: 3rem; opacity: 0.4; }
+    @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+    /* ═══════════════════ CATEGORY NAV ═══════════════════ */
+    .category-nav {
+      padding: 4rem 2rem 2rem; text-align: center; background: var(--cream);
+    }
+    .category-nav-inner {
+      display: flex; justify-content: center; gap: 0.5rem; flex-wrap: wrap;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .cat-btn {
+      font-family: var(--font-body); font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase; color: #8a7a6a;
+      background: transparent; padding: 0.7rem 1.5rem; border: 1px solid transparent;
+      cursor: pointer; transition: all 0.3s ease;
+    }
+    .cat-btn:hover, .cat-btn.active {
+      color: var(--gold-dark); border-color: var(--gold); background: rgba(196,162,101,0.06);
+    }
+
+    /* ═══════════════════ CATEGORY SECTIONS ═══════════════════ */
+    .category-section {
+      padding: 3rem 2rem 4rem; max-width: 1400px; margin: 0 auto;
+    }
+    .category-header {
+      display: flex; align-items: center; gap: 1.5rem; margin-bottom: 2.5rem;
+      padding-bottom: 1rem; border-bottom: 1px solid var(--cream-dark);
+    }
+    .category-header h2 {
+      font-family: var(--font-display); font-size: 1.8rem; font-weight: 400; color: var(--espresso);
+    }
+    .category-header h2 em { font-style: italic; font-weight: 300; }
+    .category-count {
+      font-family: var(--font-body); font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold-dark);
+      background: rgba(196,162,101,0.12); padding: 0.3rem 0.8rem;
+    }
+    .category-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    /* ═══════════════════ PRODUCT CARD ═══════════════════ */
+    .product-card {
+      background: var(--white); overflow: hidden; cursor: pointer;
+      box-shadow: 0 2px 15px rgba(0,0,0,0.05); transition: all 0.4s ease;
+      position: relative;
+    }
+    .product-card:hover { box-shadow: 0 8px 35px rgba(0,0,0,0.1); transform: translateY(-3px); }
+    .product-card-img {
+      position: relative; overflow: hidden;
+      padding: 10px; background: linear-gradient(145deg, #d4b87a, #a8884d 30%, #c4a265 50%, #a8884d 70%, #d4b87a);
+      box-shadow: inset 0 0 8px rgba(0,0,0,0.3), 0 2px 8px rgba(0,0,0,0.1);
+    }
+    .product-card-img::before {
+      content: ''; position: absolute; inset: 4px; z-index: 1;
+      border: 1px solid rgba(255,255,255,0.15); pointer-events: none;
+    }
+    .product-card-img::after {
+      content: ''; position: absolute; inset: 7px; z-index: 1;
+      border: 1px solid rgba(0,0,0,0.1); pointer-events: none;
+    }
+    .product-card-img img {
+      width: 100%; aspect-ratio: 3/4; object-fit: cover; display: block;
+      transition: transform 0.7s ease; position: relative; z-index: 0;
+    }
+    .product-card:hover .product-card-img img { transform: scale(1.05); }
+    .product-card-overlay {
+      position: absolute; inset: 10px; z-index: 2;
+      background: linear-gradient(to top, rgba(42,31,20,0.85) 0%, transparent 45%);
+      opacity: 0; transition: opacity 0.4s;
+      display: flex; flex-direction: column; justify-content: flex-end; padding: 1.2rem;
+    }
+    .product-card:hover .product-card-overlay { opacity: 1; }
+    .add-to-cart-btn {
+      font-family: var(--font-body); font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--espresso);
+      background: var(--gold); border: none; padding: 0.7rem 1.2rem; cursor: pointer;
+      transition: background 0.3s; width: 100%; text-align: center;
+    }
+    .add-to-cart-btn:hover { background: var(--gold-light); }
+    .product-card-info { padding: 1rem 1rem 1.2rem; }
+    .product-card-title {
+      font-family: var(--font-heading); font-size: 1.05rem; font-weight: 400;
+      color: var(--espresso); margin-bottom: 0.3rem;
+    }
+    .product-card-meta {
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .product-card-category {
+      font-family: var(--font-body); font-size: 0.55rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase; color: #aaa;
+    }
+    .product-card-price {
+      font-family: var(--font-body); font-size: 0.8rem; font-weight: 600;
+      color: var(--gold-dark);
+    }
+    .product-card-badge {
+      position: absolute; top: 0.8rem; left: 0.8rem; z-index: 2;
+      font-family: var(--font-body); font-size: 0.5rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--gold); color: var(--espresso); padding: 0.25rem 0.6rem;
+    }
+
+    /* ═══════════════════ BUNDLES ═══════════════════ */
+    .bundles-section {
+      padding: 6rem 2rem; background: var(--espresso); color: var(--white); text-align: center;
+    }
+    .bundles-section .section-eyebrow { justify-content: center; color: var(--gold); }
+    .bundles-section .section-eyebrow::before { display: none; }
+    .bundles-section .section-title { color: var(--white); margin-bottom: 0.75rem; }
+    .bundles-subtitle {
+      font-family: var(--font-heading); font-size: 1.15rem; font-weight: 300;
+      color: rgba(255,255,255,0.5); margin-bottom: 3.5rem;
+    }
+    .bundles-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+      max-width: 1000px; margin: 0 auto;
+    }
+    .bundle-card {
+      border: 1px solid rgba(196,162,101,0.2); padding: 2.5rem 2rem;
+      transition: all 0.4s; position: relative; overflow: hidden;
+    }
+    .bundle-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(196,162,101,0.05) 0%, transparent 60%);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .bundle-card:hover { border-color: var(--gold); }
+    .bundle-card:hover::before { opacity: 1; }
+    .bundle-card.featured { border-color: var(--gold); }
+    .bundle-card.featured .bundle-badge {
+      position: absolute; top: 0; right: 0;
+      font-family: var(--font-body); font-size: 0.5rem; font-weight: 700;
+      letter-spacing: 0.15em; text-transform: uppercase;
+      background: var(--gold); color: var(--espresso); padding: 0.3rem 0.8rem;
+    }
+    .bundle-name {
+      font-family: var(--font-display); font-size: 1.4rem; font-weight: 400;
+      margin-bottom: 0.5rem; position: relative;
+    }
+    .bundle-desc {
+      font-family: var(--font-heading); font-size: 1rem; font-weight: 300;
+      color: rgba(255,255,255,0.5); margin-bottom: 1.5rem; line-height: 1.5;
+    }
+    .bundle-pricing { margin-bottom: 1.5rem; position: relative; }
+    .bundle-original {
+      font-family: var(--font-body); font-size: 0.75rem; color: rgba(255,255,255,0.35);
+      text-decoration: line-through; margin-bottom: 0.3rem;
+    }
+    .bundle-price {
+      font-family: var(--font-display); font-size: 2.4rem; font-weight: 400; color: var(--gold);
+    }
+    .bundle-savings {
+      font-family: var(--font-body); font-size: 0.6rem; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: #6dbf7b; margin-top: 0.3rem;
+    }
+    .bundle-includes {
+      list-style: none; text-align: left; margin-bottom: 2rem; position: relative;
+    }
+    .bundle-includes li {
+      font-family: var(--font-body); font-size: 0.7rem; color: rgba(255,255,255,0.6);
+      padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+      padding-left: 1.2rem; position: relative;
+    }
+    .bundle-includes li::before {
+      content: '\2726'; position: absolute; left: 0; color: var(--gold); font-size: 0.5rem; top: 0.55rem;
+    }
+    .bundle-btn {
+      font-family: var(--font-body); font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 0.85rem 2rem; border: none; cursor: pointer; transition: all 0.3s;
+      width: 100%; position: relative;
+    }
+    .bundle-btn-primary { background: var(--gold); color: var(--espresso); }
+    .bundle-btn-primary:hover { background: var(--gold-light); }
+    .bundle-btn-outline { background: transparent; color: var(--gold); border: 1px solid var(--gold); }
+    .bundle-btn-outline:hover { background: rgba(196,162,101,0.15); }
+
+    /* ═══════════════════ QUOTE ═══════════════════ */
+    .quote-banner {
+      padding: 7rem 3rem; background: var(--plum); text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .quote-banner::before {
+      content: '\201C'; position: absolute; top: 1rem; left: 50%; transform: translateX(-50%);
+      font-family: var(--font-display); font-size: 15rem; color: rgba(196,162,101,0.06); line-height: 1;
+    }
+    .quote-text {
+      font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.6rem);
+      font-weight: 300; font-style: italic; color: var(--white);
+      max-width: 750px; margin: 0 auto 1.5rem; line-height: 1.4;
+    }
+    .quote-attribution {
+      font-family: var(--font-body); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold);
+    }
+
+    /* ═══════════════════ HOW IT WORKS ═══════════════════ */
+    .how-section {
+      padding: 5rem 3rem; background: var(--white); text-align: center;
+    }
+    .how-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;
+      max-width: 900px; margin: 3rem auto 0;
+    }
+    .how-step-num {
+      font-family: var(--font-display); font-size: 2.5rem; font-weight: 300;
+      color: var(--gold); margin-bottom: 0.8rem; line-height: 1;
+    }
+    .how-step-title {
+      font-family: var(--font-heading); font-size: 1.2rem; font-weight: 500;
+      color: var(--espresso); margin-bottom: 0.5rem;
+    }
+    .how-step-desc {
+      font-family: var(--font-body); font-size: 0.75rem; font-weight: 300;
+      color: #8a7a6a; line-height: 1.7;
+    }
+
+    /* ═══════════════════ EMAIL SIGNUP ═══════════════════ */
+    .email-section {
+      padding: 6rem 3rem; background: var(--cream-dark);
+    }
+    .email-inner {
+      max-width: 700px; margin: 0 auto; text-align: center;
+    }
+    .email-title {
+      font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 400; color: var(--espresso); margin-bottom: 1rem;
+    }
+    .email-title em { font-style: italic; font-weight: 300; }
+    .email-desc {
+      font-family: var(--font-heading); font-size: 1.1rem; font-weight: 300;
+      color: #6a5a4a; line-height: 1.7; margin-bottom: 2.5rem;
+    }
+    .email-form { max-width: 500px; margin: 0 auto; }
+    .email-input-wrap {
+      display: flex; gap: 0; border: 1px solid var(--gold);
+      overflow: hidden;
+    }
+    .email-input {
+      flex: 1; padding: 1rem 1.2rem; border: none; outline: none;
+      font-family: var(--font-body); font-size: 0.8rem; background: var(--white);
+      color: var(--espresso);
+    }
+    .email-input::placeholder { color: #bbb; letter-spacing: 0.03em; }
+    .email-btn {
+      font-family: var(--font-body); font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--espresso);
+      background: var(--gold); border: none; padding: 1rem 2rem; cursor: pointer;
+      transition: background 0.3s; white-space: nowrap;
+    }
+    .email-btn:hover { background: var(--gold-light); }
+    .email-privacy {
+      font-family: var(--font-body); font-size: 0.6rem; color: #aaa;
+      margin-top: 1rem; letter-spacing: 0.05em;
+    }
+    .email-success {
+      font-family: var(--font-heading); font-size: 1.2rem; color: var(--gold-dark);
+      padding: 1.5rem 0;
+    }
+    @media (max-width: 480px) {
+      .email-input-wrap { flex-direction: column; }
+      .email-btn { padding: 0.9rem; }
+    }
+
+    /* ═══════════════════ SECTION REUSABLE ═══════════════════ */
+    .section-eyebrow {
+      font-family: var(--font-body); font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.5rem; display: flex; align-items: center; gap: 1rem;
+    }
+    .section-eyebrow::before { content: ''; width: 40px; height: 1px; background: var(--gold); }
+    .section-title {
+      font-family: var(--font-display); font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 400; line-height: 1.15; color: var(--espresso); margin-bottom: 1.5rem;
+    }
+    .section-title em { font-style: italic; font-weight: 300; }
+
+    /* ═══════════════════ FOOTER ═══════════════════ */
+    footer { background: var(--charcoal); color: var(--white); padding: 5rem 3rem 2rem; }
+    .footer-top {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;
+      max-width: 1200px; margin: 0 auto 4rem;
+    }
+    .footer-brand { font-family: var(--font-display); font-size: 1.8rem; font-weight: 400; margin-bottom: 0.5rem; }
+    .footer-collection {
+      font-family: var(--font-heading); font-size: 1rem; font-weight: 300;
+      font-style: italic; color: var(--gold); margin-bottom: 1rem;
+    }
+    .footer-tagline {
+      font-family: var(--font-heading); font-size: 0.95rem; font-weight: 300;
+      color: rgba(255,255,255,0.4); line-height: 1.6;
+    }
+    .footer-heading {
+      font-family: var(--font-body); font-size: 0.65rem; font-weight: 600;
+      letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
+    }
+    .footer-links { list-style: none; }
+    .footer-links li { margin-bottom: 0.8rem; }
+    .footer-links a {
+      font-family: var(--font-heading); font-size: 0.95rem;
+      color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.06); padding-top: 2rem; text-align: center;
+      font-family: var(--font-body); font-size: 0.6rem; color: rgba(255,255,255,0.25); letter-spacing: 0.1em;
+    }
+
+    /* ═══════════════════ LIGHTBOX ═══════════════════ */
+    .lightbox {
+      position: fixed; inset: 0; background: rgba(26,26,26,0.95);
+      z-index: 9999; display: none; align-items: center; justify-content: center;
+      backdrop-filter: blur(10px);
+    }
+    .lightbox.active { display: flex; }
+    .lightbox-content {
+      position: relative; max-width: 88vw; max-height: 90vh;
+      display: flex; gap: 3rem; align-items: center;
+    }
+    .lightbox-img { max-height: 80vh; max-width: 55vw; object-fit: contain; box-shadow: 0 20px 80px rgba(0,0,0,0.5); }
+    .lightbox-info { min-width: 260px; max-width: 300px; }
+    .lightbox-title { font-family: var(--font-display); font-size: 1.8rem; color: var(--white); margin-bottom: 0.3rem; }
+    .lightbox-cat {
+      font-family: var(--font-body); font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem;
+    }
+    .lightbox-price { font-family: var(--font-display); font-size: 1.8rem; color: var(--gold); margin-bottom: 0.3rem; }
+    .lightbox-format {
+      font-family: var(--font-body); font-size: 0.65rem; color: rgba(255,255,255,0.4);
+      letter-spacing: 0.08em; margin-bottom: 2rem;
+    }
+    .lightbox-add {
+      display: block; width: 100%; font-family: var(--font-body); font-size: 0.65rem;
+      font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--espresso); background: var(--gold); border: none;
+      padding: 1rem; cursor: pointer; transition: background 0.3s; text-align: center;
+      margin-bottom: 1rem;
+    }
+    .lightbox-add:hover { background: var(--gold-light); }
+    .lightbox-note {
+      font-family: var(--font-body); font-size: 0.6rem; color: rgba(255,255,255,0.3);
+      text-align: center; line-height: 1.6;
+    }
+    .lightbox-close {
+      position: absolute; top: -3rem; right: 0;
+      font-family: var(--font-body); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.5);
+      background: none; border: none; cursor: pointer; transition: color 0.3s;
+    }
+    .lightbox-close:hover { color: var(--white); }
+    .lightbox-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 48px; height: 48px; background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.15); color: var(--white);
+      font-size: 1.2rem; cursor: pointer; display: flex; align-items: center;
+      justify-content: center; transition: all 0.3s;
+    }
+    .lightbox-nav:hover { background: rgba(196,162,101,0.2); border-color: var(--gold); }
+    .lightbox-prev { left: -4rem; }
+    .lightbox-next { right: -4rem; }
+
+    /* ═══════════════════ CART DRAWER ═══════════════════ */
+    .cart-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 10000;
+      opacity: 0; visibility: hidden; transition: all 0.3s;
+    }
+    .cart-overlay.open { opacity: 1; visibility: visible; }
+    .cart-drawer {
+      position: fixed; top: 0; right: -420px; width: 400px; height: 100vh;
+      background: var(--white); z-index: 10001; transition: right 0.4s ease;
+      display: flex; flex-direction: column; box-shadow: -10px 0 40px rgba(0,0,0,0.15);
+    }
+    .cart-drawer.open { right: 0; }
+    .cart-drawer-header {
+      padding: 1.5rem 2rem; border-bottom: 1px solid var(--cream-dark);
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    .cart-drawer-title {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 400;
+    }
+    .cart-close {
+      background: none; border: none; cursor: pointer;
+      font-family: var(--font-body); font-size: 0.7rem; font-weight: 500;
+      letter-spacing: 0.15em; text-transform: uppercase; color: #999;
+    }
+    .cart-items { flex: 1; overflow-y: auto; padding: 1.5rem 2rem; }
+    .cart-item {
+      display: flex; gap: 1rem; padding: 1rem 0;
+      border-bottom: 1px solid var(--cream-dark);
+    }
+    .cart-item img { width: 60px; height: 80px; object-fit: cover; }
+    .cart-item-info { flex: 1; }
+    .cart-item-name { font-family: var(--font-heading); font-size: 1rem; color: var(--espresso); }
+    .cart-item-type { font-family: var(--font-body); font-size: 0.6rem; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; }
+    .cart-item-price { font-family: var(--font-body); font-size: 0.85rem; font-weight: 600; color: var(--gold-dark); margin-top: 0.3rem; }
+    .cart-item-remove {
+      background: none; border: none; cursor: pointer; font-size: 0.9rem; color: #ccc;
+      align-self: flex-start; padding: 0.2rem;
+    }
+    .cart-item-remove:hover { color: var(--espresso); }
+    .cart-empty {
+      text-align: center; padding: 3rem 0;
+      font-family: var(--font-heading); font-size: 1.1rem; color: #bbb;
+    }
+    .cart-footer { padding: 1.5rem 2rem; border-top: 1px solid var(--cream-dark); }
+    .cart-total {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;
+    }
+    .cart-total-label { font-family: var(--font-body); font-size: 0.75rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; }
+    .cart-total-amount { font-family: var(--font-display); font-size: 1.5rem; color: var(--gold-dark); }
+    .cart-checkout {
+      display: block; width: 100%; font-family: var(--font-body); font-size: 0.65rem;
+      font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--espresso); background: var(--gold); border: none;
+      padding: 1rem; cursor: pointer; text-align: center; transition: background 0.3s;
+    }
+    .cart-checkout:hover { background: var(--gold-light); }
+
+    /* ═══════════════════ TOAST ═══════════════════ */
+    .toast {
+      position: fixed; bottom: 2rem; right: 2rem; z-index: 20000;
+      background: var(--espresso); color: var(--white); padding: 1rem 1.5rem;
+      font-family: var(--font-body); font-size: 0.75rem; letter-spacing: 0.05em;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+      transform: translateY(100px); opacity: 0; transition: all 0.4s ease;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    /* ═══════════════════ ANIMATIONS ═══════════════════ */
+    .fade-in { opacity: 0; transform: translateY(25px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+    /* ═══════════════════ RESPONSIVE ═══════════════════ */
+    @media (max-width: 1024px) {
+      .category-grid { grid-template-columns: repeat(3, 1fr); }
+      .bundles-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      .mobile-menu-btn { display: block; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .bundles-grid { grid-template-columns: 1fr; max-width: 380px; }
+      .how-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .footer-top { grid-template-columns: 1fr 1fr; }
+      .lightbox-content { flex-direction: column; gap: 1.5rem; }
+      .lightbox-img { max-width: 90vw; max-height: 50vh; }
+      .lightbox-nav { display: none; }
+      .cart-drawer { width: 100%; right: -100%; }
+    }
+    @media (max-width: 480px) {
+      .category-grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+      .product-card-info { padding: 0.7rem; }
+      .product-card-title { font-size: 0.9rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav id="navbar">
+    <a href="#" class="nav-brand">By Grace & Glory</a>
+    <ul class="nav-links">
+      <li><a href="#collection">Collection</a></li>
+      <li><a href="#bundles">Bundles</a></li>
+      <li><a href="#how">How It Works</a></li>
+    </ul>
+    <button class="nav-cart" onclick="toggleCart()" aria-label="Cart">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-count" id="cartCount">0</span>
+    </button>
+    <button class="mobile-menu-btn" aria-label="Menu"><span></span><span></span><span></span></button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-image-container">
+      <img src="img/hf_20260522_020429_647f480e-b736-44fe-9189-90f87871375e.jpg" alt="By Grace & Glory Collection" loading="eager">
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">The Collection</p>
+      <h1 class="hero-title">By Grace <em>& Glory</em></h1>
+      <p class="hero-subtitle">Faith-inspired digital wall art for the evolving woman</p>
+      <div class="hero-price-badge">Every Print $5 | Instant Download</div><br>
+      <a href="#collection" class="btn-primary">Shop the Collection</a>
+    </div>
+  </section>
+
+  <!-- Marquee -->
+  <div class="marquee-bar">
+    <div class="marquee-track">
+      <span>Digital Download</span><span>$5 Each</span><span>Instant Delivery</span>
+      <span>High-Resolution Files</span><span>Print at Home or Upload to Printer</span>
+      <span>Bundle & Save</span><span>66 Prints</span><span>Faith Meets Fine Art</span>
+      <span>Digital Download</span><span>$5 Each</span><span>Instant Delivery</span>
+      <span>High-Resolution Files</span><span>Print at Home or Upload to Printer</span>
+      <span>Bundle & Save</span><span>66 Prints</span><span>Faith Meets Fine Art</span>
+    </div>
+  </div>
+
+  <!-- Category Filter Nav -->
+  <div class="category-nav" id="collection">
+    <div class="category-nav-inner">
+      <button class="cat-btn active" onclick="filterCategory('all')">All Prints</button>
+      <button class="cat-btn" onclick="filterCategory('scripture')">Scripture Art</button>
+      <button class="cat-btn" onclick="filterCategory('butterfly')">Butterfly Portraits</button>
+      <button class="cat-btn" onclick="filterCategory('crowned')">Crowned & Throned</button>
+      <button class="cat-btn" onclick="filterCategory('devotion')">Quiet Devotion</button>
+      <button class="cat-btn" onclick="filterCategory('selflove')">Self-Love & Ritual</button>
+      <button class="cat-btn" onclick="filterCategory('lifestyle')">Black Girl Luxe</button>
+      <button class="cat-btn" onclick="filterCategory('littles')">The Littles</button>
+    </div>
+  </div>
+
+  <!-- Gallery by Category -->
+  <div id="galleryContainer"></div>
+
+  <!-- Bundles -->
+  <section class="bundles-section" id="bundles">
+    <p class="section-eyebrow">Save More</p>
+    <h2 class="section-title">Bundle <em>& Bless</em></h2>
+    <p class="bundles-subtitle">Curated bundles at a fraction of the price</p>
+    <div class="bundles-grid">
+      <div class="bundle-card">
+        <div class="bundle-name">The Grace Edit</div>
+        <div class="bundle-desc">Choose any 10 prints from the collection</div>
+        <div class="bundle-pricing">
+          <div class="bundle-original">$50 if bought separately</div>
+          <div class="bundle-price">$25</div>
+          <div class="bundle-savings">Save 50%</div>
+        </div>
+        <ul class="bundle-includes">
+          <li>10 high-res digital downloads</li>
+          <li>Mix & match any category</li>
+          <li>Instant delivery</li>
+        </ul>
+        <button class="bundle-btn bundle-btn-outline" onclick="addBundle('The Grace Edit', 25)">Add to Cart</button>
+      </div>
+      <div class="bundle-card featured">
+        <span class="bundle-badge">Best Value</span>
+        <div class="bundle-name">The Glory Bundle</div>
+        <div class="bundle-desc">Choose any 30 prints from the collection</div>
+        <div class="bundle-pricing">
+          <div class="bundle-original">$150 if bought separately</div>
+          <div class="bundle-price">$55</div>
+          <div class="bundle-savings">Save 63%</div>
+        </div>
+        <ul class="bundle-includes">
+          <li>30 high-res digital downloads</li>
+          <li>Mix & match any category</li>
+          <li>Instant delivery</li>
+          <li>Bonus: gallery wall guide</li>
+        </ul>
+        <button class="bundle-btn bundle-btn-primary" onclick="addBundle('The Glory Bundle', 55)">Add to Cart</button>
+      </div>
+      <div class="bundle-card">
+        <div class="bundle-name">The Full Testimony</div>
+        <div class="bundle-desc">The entire collection &mdash; all 66 prints</div>
+        <div class="bundle-pricing">
+          <div class="bundle-original">$330 if bought separately</div>
+          <div class="bundle-price">$99</div>
+          <div class="bundle-savings">Save 70%</div>
+        </div>
+        <ul class="bundle-includes">
+          <li>All 66 digital downloads</li>
+          <li>Every category included</li>
+          <li>Instant delivery</li>
+          <li>Bonus: gallery wall guide</li>
+        </ul>
+        <button class="bundle-btn bundle-btn-outline" onclick="addBundle('The Full Testimony', 99)">Add to Cart</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quote -->
+  <section class="quote-banner">
+    <p class="quote-text">"She is clothed in strength and dignity, and she laughs without fear of the future."</p>
+    <p class="quote-attribution">Proverbs 31:25</p>
+  </section>
+
+  <!-- How It Works -->
+  <section class="how-section" id="how">
+    <p class="section-eyebrow" style="justify-content:center"><span style="display:none"></span>Digital Downloads</p>
+    <h2 class="section-title" style="text-align:center">How It <em>Works</em></h2>
+    <div class="how-grid">
+      <div>
+        <div class="how-step-num">01</div>
+        <div class="how-step-title">Choose Your Art</div>
+        <div class="how-step-desc">Browse the collection and add your favorites to cart &mdash; singles or bundles.</div>
+      </div>
+      <div>
+        <div class="how-step-num">02</div>
+        <div class="how-step-title">Instant Download</div>
+        <div class="how-step-desc">Receive your high-resolution files immediately after purchase. Print-ready quality.</div>
+      </div>
+      <div>
+        <div class="how-step-num">03</div>
+        <div class="how-step-title">Print & Display</div>
+        <div class="how-step-desc">Print at home, at a local shop, or upload to an online printer. Frame and enjoy.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Email Signup -->
+  <section class="email-section" id="email">
+    <div class="email-inner">
+      <div class="email-text">
+        <p class="section-eyebrow" style="color:var(--gold);">Stay Connected</p>
+        <h2 class="email-title">Be the First to <em>Know</em></h2>
+        <p class="email-desc">New prints, exclusive bundles, and early access drops delivered to your inbox. Join the By Grace & Glory community.</p>
+      </div>
+      <form class="email-form" id="emailForm" onsubmit="handleEmailSubmit(event)">
+        <div class="email-input-wrap">
+          <input type="email" class="email-input" placeholder="Your email address" required id="emailInput">
+          <button type="submit" class="email-btn">Join the List</button>
+        </div>
+        <p class="email-privacy">We respect your privacy. Unsubscribe anytime.</p>
+      </form>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-top">
+      <div>
+        <p class="footer-brand">By Grace & Glory</p>
+        <p class="footer-collection">Faith-Inspired Digital Art</p>
+        <p class="footer-tagline">Faith-inspired digital art for the woman who walks in grace and lives in glory. Every piece is a prayer made visible.</p>
+      </div>
+      <div>
+        <p class="footer-heading">Shop</p>
+        <ul class="footer-links">
+          <li><a href="#collection">Full Collection</a></li>
+          <li><a href="#bundles">Bundles</a></li>
+          <li><a href="#">Custom Orders</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-heading">About</p>
+        <ul class="footer-links">
+          <li><a href="#">Our Story</a></li>
+          <li><a href="#">The Artist</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-heading">Connect</p>
+        <ul class="footer-links">
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Pinterest</a></li>
+          <li><a href="#">Email Us</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">&copy; 2026 By Grace & Glory. All rights reserved. All artwork is for personal use only.</div>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-content">
+      <button class="lightbox-close" onclick="closeLightbox()">Close &times;</button>
+      <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">&#8249;</button>
+      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      <div class="lightbox-info">
+        <h3 class="lightbox-title" id="lightboxTitle"></h3>
+        <p class="lightbox-cat" id="lightboxCat"></p>
+        <p class="lightbox-price">$5</p>
+        <p class="lightbox-format">High-Resolution Digital Download (PNG)</p>
+        <button class="lightbox-add" id="lightboxAdd">Add to Cart</button>
+        <p class="lightbox-note">Instant download after purchase.<br>Print at any size up to 24&times;36.</p>
+      </div>
+      <button class="lightbox-nav lightbox-next" onclick="navigateLightbox(1)">&#8250;</button>
+    </div>
+  </div>
+
+  <!-- Cart Drawer -->
+  <div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+  <div class="cart-drawer" id="cartDrawer">
+    <div class="cart-drawer-header">
+      <span class="cart-drawer-title">Your Cart</span>
+      <button class="cart-close" onclick="toggleCart()">Close</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+      <div class="cart-empty">Your cart is empty</div>
+    </div>
+    <div class="cart-footer">
+      <div class="cart-total">
+        <span class="cart-total-label">Total</span>
+        <span class="cart-total-amount" id="cartTotal">$0</span>
+      </div>
+      <button class="cart-checkout">Checkout</button>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ══════════════ DATA ══════════════
+    const prints = [
+      // Scripture Art
+      { file: "hf_20260520_021442_048755e3-f9e7-481a-ba60-85f68814ef1c.jpg", name: "For I Know the Plans", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260520_021539_77248a32-d25b-4faa-9b57-31ab2e9116b9.jpg", name: "God Is Within Her", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260520_022043_edd5841d-c95d-43cb-8b08-29188cd69a83.jpg", name: "She Will Not Fall", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260520_022106_589ed4ba-8772-4e58-8df6-f6dac9ed5ef6.jpg", name: "Soar on Wings Like Eagles", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_014701_2630de47-351c-4ced-a62f-7c7bab547c4c.jpg", name: "Write the Vision", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_014904_54a76800-8bf9-4282-8766-16c77df81038.jpg", name: "For I Know the Plans II", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_015705_b526302d-0d11-4bfb-985b-6a1ce7ab2517.jpg", name: "The Plans I Have", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_015722_7bffd1bd-80f0-4332-bb77-4534024f2b3e.jpg", name: "God Is Within Her II", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_015737_7c2021dc-a2d0-4ee1-b4ae-778fc9fbb94a.jpg", name: "Soar on Wings II", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_015752_0ba5e6d9-4224-4377-b0e1-c20d26c4510c.jpg", name: "Write the Vision II", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_020144_ef89dcc5-fc0d-412c-8ab3-66e847a012e2.jpg", name: "He Rejoices Over You", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_020211_41e4cb28-78e0-4eef-b325-197877340677.jpg", name: "No Weapon Formed", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_020253_4f332a66-8c17-47a5-8b5a-aa4bbf868919.jpg", name: "For Such a Time", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_020315_aecc046c-69d1-4485-95e0-cdc143696d98.jpg", name: "His Mercies Are New", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_020330_898f1c70-47d0-42de-9d8b-f531ef1327e0.jpg", name: "Windows of Heaven", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_020417_09aa00af-6307-4855-a88d-ffb9e1e4a8ca.jpg", name: "Pour Out a Blessing", cat: "scripture", catLabel: "Scripture Art" },
+      { file: "hf_20260522_020429_647f480e-b736-44fe-9189-90f87871375e.jpg", name: "Head and Not the Tail", cat: "scripture", catLabel: "Scripture Art" },
+
+      // Butterfly Portraits
+      { file: "hf_20260520_021554_aa85a339-8d57-4ef3-84ba-d209bfcce844.jpg", name: "Violet Wings", cat: "butterfly", catLabel: "Butterfly Portraits" },
+      { file: "hf_20260520_021940_c5e3f0bf-88e0-461e-bf9a-9e6a4de371fa.jpg", name: "Garden Whisper", cat: "butterfly", catLabel: "Butterfly Portraits" },
+      { file: "hf_20260520_022131_ea41b2b3-e089-4ebc-99c7-e79dfe6c2865.jpg", name: "Leopard & Butterflies", cat: "butterfly", catLabel: "Butterfly Portraits" },
+      { file: "hf_20260522_014806_4f9fd4c5-0254-4fac-909a-cfd3f07f5de2.jpg", name: "Veiled in Wings", cat: "butterfly", catLabel: "Butterfly Portraits" },
+      { file: "hf_20260522_015948_20ecd233-ec63-4d1f-a680-6dd7a31e4bd9.jpg", name: "Sepia Butterfly Mask", cat: "butterfly", catLabel: "Butterfly Portraits" },
+      { file: "hf_20260524_230958_669dda51-7d78-485e-8e6d-3a36afd5f5f6.jpg", name: "Emerald Butterfly", cat: "butterfly", catLabel: "Butterfly Portraits" },
+      { file: "hf_20260525_012647_9a017adb-0f97-4fb7-af76-4b59e3b14e8b.jpg", name: "Monarch Veil", cat: "butterfly", catLabel: "Butterfly Portraits" },
+      { file: "hf_20260525_012728_77551364-fa24-4844-b4b3-3f59b493a0ab.jpg", name: "Monarch Veil II", cat: "butterfly", catLabel: "Butterfly Portraits" },
+      { file: "hf_20260525_013351_857f811c-f3ec-4d2f-b1f3-4427d4d80bd9.jpg", name: "Monarch Surrender", cat: "butterfly", catLabel: "Butterfly Portraits" },
+      { file: "hf_20260525_013400_4d9c8e94-bc60-4eb9-9897-bfd9e6f6f960.jpg", name: "Purple Monarchs", cat: "butterfly", catLabel: "Butterfly Portraits" },
+
+      // Crowned & Throned
+      { file: "hf_20260520_021522_fa211fb0-e899-49c6-bd3e-003e4e00fef8.jpg", name: "Crowned in Bloom", cat: "crowned", catLabel: "Crowned & Throned" },
+      { file: "hf_20260522_014953_9b33bfd7-ae2a-4654-a13c-68f4dc500dbd.jpg", name: "The Queen's Throne", cat: "crowned", catLabel: "Crowned & Throned" },
+      { file: "hf_20260522_015031_9b998a38-402d-431b-b6ca-5276ccf13a71.jpg", name: "Wings of Worship", cat: "crowned", catLabel: "Crowned & Throned" },
+      { file: "hf_20260522_020033_bc2813eb-0ed4-4672-9e70-5f75ee47f0d3.jpg", name: "Floral Crown", cat: "crowned", catLabel: "Crowned & Throned" },
+      { file: "hf_20260524_234854_c20d59a6-1188-42a8-ba2e-4c8203ca1dac.jpg", name: "Midnight Crown", cat: "crowned", catLabel: "Crowned & Throned" },
+      { file: "hf_20260524_230914_ef3f99b2-7dda-48f6-96fb-b5a46baccd88.jpg", name: "Sunflower Joy", cat: "crowned", catLabel: "Crowned & Throned" },
+
+      // Quiet Devotion (reading, praying, Bible, journaling)
+      { file: "hf_20260522_020131_cdeec9c8-ff15-4de0-baa1-287479f8673e.jpg", name: "Fearfully & Wonderfully Made", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260524_231138_d2a8eb83-8e96-483b-a60d-b3b2d2ffacc4.jpg", name: "Love Letters", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260524_231218_37b6cac6-3a7f-4f43-b32d-9252f891fa15.jpg", name: "Candlelit Reading", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260524_233633_f98e9674-a8a5-4f84-ae6b-232c8569d12e.jpg", name: "Held Close", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260524_233918_6f4f2b1a-6520-4ca0-8840-e3a9f5125fb8.jpg", name: "Sunday Rest", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260524_234538_a5b5e740-6e09-4468-b526-10f860dfb166.jpg", name: "Letters from God", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260524_234803_29a46dc9-b382-442d-a695-8188523f6bac.jpg", name: "Resting in the Word", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260524_235128_53effd78-9d2f-47bb-975a-a8893bde6185.jpg", name: "Butterfly Devotion", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260524_235147_58030cfd-786f-421d-b791-f3e2fc1d6006.jpg", name: "Art Studio Devotion", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260524_235312_61697ba2-3087-4af8-a365-619032151051.jpg", name: "Garden of the Word", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260524_235437_19f028e4-9587-49cc-8422-7b2f6eb8e9b2.jpg", name: "Illuminated", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260525_015911_af38e4ca-5c3b-45c1-846c-6d76964bc002.jpg", name: "Holy Bible & Leopard", cat: "devotion", catLabel: "Quiet Devotion" },
+      { file: "hf_20260525_020522_a5c4e743-c709-4065-bc8d-5b1cf2eaa4f8.jpg", name: "Evening Devotion", cat: "devotion", catLabel: "Quiet Devotion" },
+
+      // Self-Love & Ritual (bath, morning, coffee, skincare)
+      { file: "hf_20260520_005942_75c0cb3e-c5f2-47a0-b1ad-212ae8d916a8.jpg", name: "Heart Balloons", cat: "selflove", catLabel: "Self-Love & Ritual" },
+      { file: "hf_20260522_014517_025d89ba-df5e-4559-a559-ce9c6583b7e7.jpg", name: "Heart Balloons II", cat: "selflove", catLabel: "Self-Love & Ritual" },
+      { file: "hf_20260522_014938_fbe7937a-230c-4a90-bdec-c6f24dd7e231.jpg", name: "Candlelit Hands", cat: "selflove", catLabel: "Self-Love & Ritual" },
+      { file: "hf_20260524_235020_c18521b2-6c03-4998-ab6c-e926eebfdc59.jpg", name: "Morning Cup", cat: "selflove", catLabel: "Self-Love & Ritual" },
+      { file: "hf_20260524_235103_0ec462dd-5964-42c1-9572-abc6a5300239.jpg", name: "New Morning", cat: "selflove", catLabel: "Self-Love & Ritual" },
+      { file: "hf_20260524_235114_61c09e09-b422-44ae-a721-938f70d1cbbc.jpg", name: "Linen Morning", cat: "selflove", catLabel: "Self-Love & Ritual" },
+      { file: "hf_20260524_235338_789babc4-93d7-470f-8cc4-f192e4d2673c.jpg", name: "Morning Window", cat: "selflove", catLabel: "Self-Love & Ritual" },
+
+      // Black Girl Luxe (travel, fashion, plants, lifestyle)
+      { file: "hf_20260524_234909_d8ec862f-bc7f-4899-91b9-01d48a28efbb.jpg", name: "The Photographer", cat: "lifestyle", catLabel: "Black Girl Luxe" },
+      { file: "hf_20260524_234817_36916bf3-1bb4-4da2-bef8-d8468ddd5e1f.jpg", name: "Afternoon Light", cat: "lifestyle", catLabel: "Black Girl Luxe" },
+      { file: "hf_20260524_235822_541a7c58-a512-4377-8d7d-c3b50637f778.jpg", name: "Urban Jungle", cat: "lifestyle", catLabel: "Black Girl Luxe" },
+      { file: "hf_20260525_004650_e09b6415-e642-4b5e-bfed-82e07610a613.jpg", name: "The Botanist", cat: "lifestyle", catLabel: "Black Girl Luxe" },
+      { file: "hf_20260525_005208_d9f5193a-46df-4710-b72a-d64fbfc49554.jpg", name: "CEO Morning", cat: "lifestyle", catLabel: "Black Girl Luxe" },
+      { file: "hf_20260525_005414_d61bb3ee-e9fa-4677-912c-aff06c198ba9.jpg", name: "Plant Shop", cat: "lifestyle", catLabel: "Black Girl Luxe" },
+      { file: "hf_20260525_010537_519e006e-0060-4a5e-9c6d-c8f4dd9f020d.jpg", name: "First Class", cat: "lifestyle", catLabel: "Black Girl Luxe" },
+      { file: "hf_20260525_013051_52e78868-526e-49cd-b7bf-aecaacc4e4ea.jpg", name: "Sunset Dinner", cat: "lifestyle", catLabel: "Black Girl Luxe" },
+
+      // The Littles (children)
+      { file: "hf_20260525_004422_9b09f014-3dfe-4137-9b55-a69290a1fd90.jpg", name: "Braids & Butterflies", cat: "littles", catLabel: "The Littles" },
+      { file: "hf_20260525_004605_d8267d34-44f8-4d21-9865-f195bb52ccd2.jpg", name: "Beaded Braids", cat: "littles", catLabel: "The Littles" },
+      { file: "hf_20260525_012425_fbe7f757-8ae0-45b0-b8e3-06e267b180ae.jpg", name: "Sister Sister", cat: "littles", catLabel: "The Littles" },
+      { file: "hf_20260525_013719_163c4dc1-da8d-43c6-9253-18361ed7735a.jpg", name: "Side by Side", cat: "littles", catLabel: "The Littles" },
+
+      // Mirrors & Reflections
+      { file: "hf_20260524_235437_19f028e4-9587-49cc-8422-7b2f6eb8e9b2.jpg", name: "Mirror Reflection", cat: "selflove", catLabel: "Self-Love & Ritual" },
+    ];
+
+    const categoryOrder = ['scripture','butterfly','crowned','devotion','selflove','lifestyle','littles'];
+    const categoryNames = {
+      scripture: 'Scripture Art', butterfly: 'Butterfly Portraits', crowned: 'Crowned & Throned',
+      devotion: 'Quiet Devotion', selflove: 'Self-Love & Ritual', lifestyle: 'Black Girl Luxe',
+      littles: 'The Littles'
+    };
+
+    let currentFilter = 'all';
+    let cart = [];
+
+    // ══════════════ RENDER GALLERY ══════════════
+    function renderGallery() {
+      const container = document.getElementById('galleryContainer');
+      container.innerHTML = '';
+
+      const catsToShow = currentFilter === 'all' ? categoryOrder : [currentFilter];
+
+      catsToShow.forEach(cat => {
+        const catPrints = prints.filter(p => p.cat === cat);
+        if (catPrints.length === 0) return;
+
+        const section = document.createElement('section');
+        section.className = 'category-section fade-in';
+
+        section.innerHTML = `
+          <div class="category-header">
+            <h2>${categoryNames[cat]}</h2>
+            <span class="category-count">${catPrints.length} prints</span>
+          </div>
+          <div class="category-grid">
+            ${catPrints.map((p, i) => {
+              const globalIdx = prints.indexOf(p);
+              return `
+                <div class="product-card" onclick="openLightbox(${globalIdx})">
+                  <div class="product-card-img">
+                    <img src="img/${p.file}" alt="${p.name}" loading="lazy">
+                    <div class="product-card-overlay">
+                      <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${globalIdx})">Add to Cart</button>
+                    </div>
+                  </div>
+                  <div class="product-card-info">
+                    <div class="product-card-title">${p.name}</div>
+                    <div class="product-card-meta">
+                      <span class="product-card-category">${p.catLabel}</span>
+                      <span class="product-card-price">$5</span>
+                    </div>
+                  </div>
+                </div>`;
+            }).join('')}
+          </div>`;
+
+        container.appendChild(section);
+      });
+
+      // Re-observe fade-ins
+      document.querySelectorAll('.fade-in:not(.visible)').forEach(el => observer.observe(el));
+    }
+
+    function filterCategory(cat) {
+      currentFilter = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      renderGallery();
+    }
+
+    // ══════════════ CART ══════════════
+    function addToCart(idx) {
+      const p = prints[idx];
+      const existing = cart.find(item => item.type === 'print' && item.idx === idx);
+      if (existing) {
+        showToast(`"${p.name}" is already in your cart`);
+        return;
+      }
+      cart.push({ type: 'print', idx, name: p.name, price: 5, file: p.file });
+      updateCart();
+      showToast(`Added "${p.name}" to cart`);
+    }
+
+    function addBundle(name, price) {
+      cart.push({ type: 'bundle', name, price, file: null });
+      updateCart();
+      showToast(`Added "${name}" bundle to cart`);
+    }
+
+    function removeFromCart(i) {
+      cart.splice(i, 1);
+      updateCart();
+    }
+
+    function updateCart() {
+      const countEl = document.getElementById('cartCount');
+      const itemsEl = document.getElementById('cartItems');
+      const totalEl = document.getElementById('cartTotal');
+
+      countEl.textContent = cart.length;
+      countEl.classList.toggle('show', cart.length > 0);
+
+      if (cart.length === 0) {
+        itemsEl.innerHTML = '<div class="cart-empty">Your cart is empty</div>';
+      } else {
+        itemsEl.innerHTML = cart.map((item, i) => `
+          <div class="cart-item">
+            ${item.file ? `<img src="img/${item.file}" alt="${item.name}">` : '<div style="width:60px;height:80px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);color:var(--espresso);font-size:0.8rem;">Bundle</div>'}
+            <div class="cart-item-info">
+              <div class="cart-item-name">${item.name}</div>
+              <div class="cart-item-type">${item.type === 'bundle' ? 'Bundle' : 'Digital Download'}</div>
+              <div class="cart-item-price">$${item.price}</div>
+            </div>
+            <button class="cart-item-remove" onclick="removeFromCart(${i})">&times;</button>
+          </div>
+        `).join('');
+      }
+
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      totalEl.textContent = `$${total}`;
+    }
+
+    function toggleCart() {
+      document.getElementById('cartOverlay').classList.toggle('open');
+      document.getElementById('cartDrawer').classList.toggle('open');
+    }
+
+    function showToast(msg) {
+      const t = document.getElementById('toast');
+      t.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+
+    // ══════════════ LIGHTBOX ══════════════
+    let currentIndex = 0;
+
+    function openLightbox(idx) {
+      currentIndex = idx;
+      const p = prints[idx];
+      document.getElementById('lightboxImg').src = `img/${p.file}`;
+      document.getElementById('lightboxTitle').textContent = p.name;
+      document.getElementById('lightboxCat').textContent = p.catLabel;
+      document.getElementById('lightboxAdd').onclick = () => { addToCart(idx); };
+      document.getElementById('lightbox').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function navigateLightbox(dir) {
+      const visible = currentFilter === 'all' ? prints : prints.filter(p => p.cat === currentFilter);
+      const currentPrint = prints[currentIndex];
+      const visibleIdx = visible.indexOf(currentPrint);
+      const newVisibleIdx = (visibleIdx + dir + visible.length) % visible.length;
+      const newPrint = visible[newVisibleIdx];
+      currentIndex = prints.indexOf(newPrint);
+      openLightbox(currentIndex);
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowRight') navigateLightbox(1);
+      if (e.key === 'ArrowLeft') navigateLightbox(-1);
+    });
+    document.getElementById('lightbox').addEventListener('click', e => {
+      if (e.target.id === 'lightbox') closeLightbox();
+    });
+
+    // ══════════════ SCROLL NAV ══════════════
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // ══════════════ FADE-IN OBSERVER ══════════════
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+    // ══════════════ EMAIL SIGNUP ══════════════
+    function handleEmailSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('emailInput').value;
+      // Store emails locally until you connect Payhip/Mailchimp/Kit
+      let emails = JSON.parse(localStorage.getItem('bgag_emails') || '[]');
+      emails.push({ email, date: new Date().toISOString() });
+      localStorage.setItem('bgag_emails', JSON.stringify(emails));
+      document.getElementById('emailForm').innerHTML = '<p class="email-success">Welcome to the family. Watch your inbox for something beautiful.</p>';
+      showToast('You\'re on the list!');
+    }
+
+    // ══════════════ PAYHIP CHECKOUT ══════════════
+    // TODO: Replace these with your Payhip product URLs after setup
+    // Each print needs a payhipUrl property added to the prints array
+    // For now, checkout shows a message to complete Payhip setup
+
+    // ══════════════ INIT ══════════════
+    renderGallery();
+  </script>
+</body>
+</html>

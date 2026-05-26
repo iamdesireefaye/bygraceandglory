@@ -142,8 +142,8 @@
       localStorage.setItem('bgag_messages', JSON.stringify(msgs));
 
       // Send to Google Sheets via Apps Script
-      const SHEET_URL = 'https://script.google.com/macros/s/AKfycbzAIoTOWVYAaaJc3JADQYmkFUnn_jZKofIUpOIATvPpjVAvLOCePEWcdV23HgAPROzYMQ/exec';
-      if (SHEET_URL !== 'https://script.google.com/macros/s/AKfycbzAIoTOWVYAaaJc3JADQYmkFUnn_jZKofIUpOIATvPpjVAvLOCePEWcdV23HgAPROzYMQ/exec') {
+      const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxAAMl8DHsbbSv4qqxTfM1IERuB3xsOx_Hl8kaRNB3tOJEQtiu3i-Jh2yObebo26oLGnw/exec';
+      if (SHEET_URL !== 'https://script.google.com/macros/s/AKfycbxAAMl8DHsbbSv4qqxTfM1IERuB3xsOx_Hl8kaRNB3tOJEQtiu3i-Jh2yObebo26oLGnw/exec') {
         fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'application/json'}, body: JSON.stringify({name, email, message, date: new Date().toISOString(), type: 'contact'}) });
       }
 

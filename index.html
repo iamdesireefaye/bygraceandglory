@@ -667,7 +667,7 @@
           <li>Mix & match any category</li>
           <li>Instant delivery</li>
         </ul>
-        <button class="bundle-btn bundle-btn-outline" onclick="window.open(bundleLinks.grace,'_blank')">Buy Now</button>
+        <button class="bundle-btn bundle-btn-outline" onclick="addBundle('The Grace Edit', 25, bundlePrices.grace)">Add to Cart</button>
       </div>
       <div class="bundle-card featured">
         <span class="bundle-badge">Best Value</span>
@@ -684,7 +684,7 @@
           <li>Instant delivery</li>
           <li>Bonus: gallery wall guide</li>
         </ul>
-        <button class="bundle-btn bundle-btn-primary" onclick="window.open(bundleLinks.glory,'_blank')">Buy Now</button>
+        <button class="bundle-btn bundle-btn-primary" onclick="addBundle('The Glory Bundle', 55, bundlePrices.glory)">Add to Cart</button>
       </div>
       <div class="bundle-card">
         <div class="bundle-name">The Full Testimony</div>
@@ -700,7 +700,7 @@
           <li>Instant delivery</li>
           <li>Bonus: gallery wall guide</li>
         </ul>
-        <button class="bundle-btn bundle-btn-outline" onclick="window.open(bundleLinks.full,'_blank')">Buy Now</button>
+        <button class="bundle-btn bundle-btn-outline" onclick="addBundle('The Full Testimony', 99, bundlePrices.full)">Add to Cart</button>
       </div>
     </div>
   </section>
@@ -820,7 +820,7 @@
         <span class="cart-total-label">Total</span>
         <span class="cart-total-amount" id="cartTotal">$0</span>
       </div>
-      <button class="cart-checkout">Checkout</button>
+      <button class="cart-checkout" onclick="checkout()">Checkout</button>
     </div>
   </div>
 
@@ -920,17 +920,14 @@
       littles: 'The Littles'
     };
 
-    // Stripe Payment Links
-    const stripeLinks = {"hf_20260520_021442_048755e3-f9e7-481a-ba60-85f68814ef1c":"https://buy.stripe.com/00w5kw9nd5J57UN2ct5Vu00","hf_20260520_021539_77248a32-d25b-4faa-9b57-31ab2e9116b9":"https://buy.stripe.com/aFaeV6eHx8Vh1wp6sJ5Vu01","hf_20260520_022043_edd5841d-c95d-43cb-8b08-29188cd69a83":"https://buy.stripe.com/3cI28k2YPgnJ4IB04l5Vu02","hf_20260520_022106_589ed4ba-8772-4e58-8df6-f6dac9ed5ef6":"https://buy.stripe.com/3cI9AMczp5J5fnf7wN5Vu03","hf_20260522_014701_2630de47-351c-4ced-a62f-7c7bab547c4c":"https://buy.stripe.com/6oU9AM7f53AX7UN9EV5Vu04","hf_20260522_014904_54a76800-8bf9-4282-8766-16c77df81038":"https://buy.stripe.com/aFa6oA1UL4F17UN4kB5Vu05","hf_20260522_015705_b526302d-0d11-4bfb-985b-6a1ce7ab2517":"https://buy.stripe.com/4gMfZabvl6N96QJ2ct5Vu06","hf_20260522_015722_7bffd1bd-80f0-4332-bb77-4534024f2b3e":"https://buy.stripe.com/5kQ00c0QH5J57UN4kB5Vu07","hf_20260522_015737_7c2021dc-a2d0-4ee1-b4ae-778fc9fbb94a":"https://buy.stripe.com/cNi4gseHxb3pgrj9EV5Vu08","hf_20260522_015752_0ba5e6d9-4224-4377-b0e1-c20d26c4510c":"https://buy.stripe.com/7sY8wI1ULdbx6QJ6sJ5Vu09","hf_20260522_020144_ef89dcc5-fc0d-412c-8ab3-66e847a012e2":"https://buy.stripe.com/7sYdR256X0oL7UNbN35Vu0a","hf_20260522_020211_41e4cb28-78e0-4eef-b325-197877340677":"https://buy.stripe.com/3cI4gsgPFc7t7UN6sJ5Vu0b","hf_20260522_020253_4f332a66-8c17-47a5-8b5a-aa4bbf868919":"https://buy.stripe.com/dRmcMYdDtfjFa2V18p5Vu0c","hf_20260522_020315_aecc046c-69d1-4485-95e0-cdc143696d98":"https://buy.stripe.com/14AfZa8j98Vh8YR8AR5Vu0d","hf_20260522_020330_898f1c70-47d0-42de-9d8b-f531ef1327e0":"https://buy.stripe.com/4gM9AMeHxgnJa2VeZf5Vu0e","hf_20260522_020417_09aa00af-6307-4855-a88d-ffb9e1e4a8ca":"https://buy.stripe.com/cNi00ceHxb3p5MFdVb5Vu0f","hf_20260522_020429_647f480e-b736-44fe-9189-90f87871375e":"https://buy.stripe.com/6oU9AMbvl3AX6QJg3j5Vu0g","hf_20260520_021554_aa85a339-8d57-4ef3-84ba-d209bfcce844":"https://buy.stripe.com/4gM28kbvl0oL5MF5oF5Vu0h","hf_20260520_021940_c5e3f0bf-88e0-461e-bf9a-9e6a4de371fa":"https://buy.stripe.com/eVq14g1UL5J55MF3gx5Vu0i","hf_20260520_022131_ea41b2b3-e089-4ebc-99c7-e79dfe6c2865":"https://buy.stripe.com/eVq8wI1UL1sP3ExcR75Vu0j","hf_20260522_014806_4f9fd4c5-0254-4fac-909a-cfd3f07f5de2":"https://buy.stripe.com/bJe7sE0QH1sP4IBcR75Vu0k","hf_20260522_015948_20ecd233-ec63-4d1f-a680-6dd7a31e4bd9":"https://buy.stripe.com/00w5kwdDtc7t3Ex18p5Vu0l","hf_20260524_230958_669dda51-7d78-485e-8e6d-3a36afd5f5f6":"https://buy.stripe.com/4gMcMY1UL0oL2At3gx5Vu0m","hf_20260525_012647_9a017adb-0f97-4fb7-af76-4b59e3b14e8b":"https://buy.stripe.com/cNibIU9nd6N9df76sJ5Vu0n","hf_20260525_012728_77551364-fa24-4844-b4b3-3f59b493a0ab":"https://buy.stripe.com/3cI5kw2YPc7t4IB2ct5Vu0o","hf_20260525_013351_857f811c-f3ec-4d2f-b1f3-4427d4d80bd9":"https://buy.stripe.com/7sYeV6czp4F1b6ZeZf5Vu0p","hf_20260525_013400_4d9c8e94-bc60-4eb9-9897-bfd9e6f6f960":"https://buy.stripe.com/dRmaEQ42TgnJ6QJcR75Vu0q","hf_20260520_021522_fa211fb0-e899-49c6-bd3e-003e4e00fef8":"https://buy.stripe.com/cNi6oAarhgnJfnf2ct5Vu0r","hf_20260522_014953_9b33bfd7-ae2a-4654-a13c-68f4dc500dbd":"https://buy.stripe.com/fZu9AMdDt5J55MF04l5Vu0s","hf_20260522_015031_9b998a38-402d-431b-b6ca-5276ccf13a71":"https://buy.stripe.com/7sYaEQbvl1sPejb04l5Vu0t","hf_20260522_020033_bc2813eb-0ed4-4672-9e70-5f75ee47f0d3":"https://buy.stripe.com/dRmcMYarh4F1a2V18p5Vu0u","hf_20260524_234854_c20d59a6-1188-42a8-ba2e-4c8203ca1dac":"https://buy.stripe.com/4gMaEQ8j97Rd6QJ4kB5Vu0v","hf_20260524_230914_ef3f99b2-7dda-48f6-96fb-b5a46baccd88":"https://buy.stripe.com/4gM8wI42T9Zlcb32ct5Vu0w","hf_20260522_020131_cdeec9c8-ff15-4de0-baa1-287479f8673e":"https://buy.stripe.com/3cI14gdDt9Zl8YR2ct5Vu0x","hf_20260524_231138_d2a8eb83-8e96-483b-a60d-b3b2d2ffacc4":"https://buy.stripe.com/3cIeV6bvlgnJ7UNbN35Vu0y","hf_20260524_231218_37b6cac6-3a7f-4f43-b32d-9252f891fa15":"https://buy.stripe.com/4gMaEQ9ndb3pgrjeZf5Vu0z","hf_20260524_233633_f98e9674-a8a5-4f84-ae6b-232c8569d12e":"https://buy.stripe.com/eVq8wI1ULc7t7UN9EV5Vu0A","hf_20260524_233918_6f4f2b1a-6520-4ca0-8840-e3a9f5125fb8":"https://buy.stripe.com/7sY00c56X4F16QJbN35Vu0B","hf_20260524_234538_a5b5e740-6e09-4468-b526-10f860dfb166":"https://buy.stripe.com/7sY6oAdDtfjF1wp3gx5Vu0C","hf_20260524_234803_29a46dc9-b382-442d-a695-8188523f6bac":"https://buy.stripe.com/fZuaEQ9nd4F1fnf2ct5Vu0D","hf_20260524_235128_53effd78-9d2f-47bb-975a-a8893bde6185":"https://buy.stripe.com/dRm28k42T2wT0sl04l5Vu0E","hf_20260524_235147_58030cfd-786f-421d-b791-f3e2fc1d6006":"https://buy.stripe.com/eVqeV60QHc7t6QJ3gx5Vu0F","hf_20260524_235312_61697ba2-3087-4af8-a365-619032151051":"https://buy.stripe.com/14A4gsarhgnJejbbN35Vu0G","hf_20260524_235437_19f028e4-9587-49cc-8422-7b2f6eb8e9b2":"https://buy.stripe.com/14A5kwdDt6N9fnfdVb5Vu0R","hf_20260525_015911_af38e4ca-5c3b-45c1-846c-6d76964bc002":"https://buy.stripe.com/3cI8wI1UL2wTejbeZf5Vu0I","hf_20260525_020522_a5c4e743-c709-4065-bc8d-5b1cf2eaa4f8":"https://buy.stripe.com/cNidR256X7Rd4IB6sJ5Vu0J","hf_20260520_005942_75c0cb3e-c5f2-47a0-b1ad-212ae8d916a8":"https://buy.stripe.com/fZu14g8j92wTcb32ct5Vu0K","hf_20260522_014517_025d89ba-df5e-4559-a559-ce9c6583b7e7":"https://buy.stripe.com/fZu5kw9ndgnJ1wpeZf5Vu0L","hf_20260522_014938_fbe7937a-230c-4a90-bdec-c6f24dd7e231":"https://buy.stripe.com/9B628kgPF0oLgrj9EV5Vu0M","hf_20260524_235020_c18521b2-6c03-4998-ab6c-e926eebfdc59":"https://buy.stripe.com/14A6oAfLBb3pb6ZdVb5Vu0N","hf_20260524_235103_0ec462dd-5964-42c1-9572-abc6a5300239":"https://buy.stripe.com/3cI4gs0QH9Zl2AteZf5Vu0O","hf_20260524_235114_61c09e09-b422-44ae-a721-938f70d1cbbc":"https://buy.stripe.com/9B6bIU2YPdbx5MF3gx5Vu0P","hf_20260524_235338_789babc4-93d7-470f-8cc4-f192e4d2673c":"https://buy.stripe.com/bJe7sEczpb3p7UN6sJ5Vu0Q","hf_20260524_234909_d8ec862f-bc7f-4899-91b9-01d48a28efbb":"https://buy.stripe.com/28E5kw1ULdbxgrj7wN5Vu0S","hf_20260524_234817_36916bf3-1bb4-4da2-bef8-d8468ddd5e1f":"https://buy.stripe.com/6oU4gsgPF4F14IBbN35Vu0T","hf_20260524_235822_541a7c58-a512-4377-8d7d-c3b50637f778":"https://buy.stripe.com/eVqaEQdDt0oLgrj04l5Vu0U","hf_20260525_004650_e09b6415-e642-4b5e-bfed-82e07610a613":"https://buy.stripe.com/8x2fZa6b19Zlb6Z9EV5Vu0V","hf_20260525_005208_d9f5193a-46df-4710-b72a-d64fbfc49554":"https://buy.stripe.com/9B67sE0QH7Rd1wp5oF5Vu0W","hf_20260525_005414_d61bb3ee-e9fa-4677-912c-aff06c198ba9":"https://buy.stripe.com/9B6dR2gPFfjFcb3aIZ5Vu0X","hf_20260525_010537_519e006e-0060-4a5e-9c6d-c8f4dd9f020d":"https://buy.stripe.com/6oUcMYgPF3AX8YR7wN5Vu0Y","hf_20260525_013051_52e78868-526e-49cd-b7bf-aecaacc4e4ea":"https://buy.stripe.com/3cI6oA6b17Rd0slbN35Vu0Z","hf_20260525_004422_9b09f014-3dfe-4137-9b55-a69290a1fd90":"https://buy.stripe.com/cNi28k7f55J5grj9EV5Vu10","hf_20260525_004605_d8267d34-44f8-4d21-9865-f195bb52ccd2":"https://buy.stripe.com/aFa14g6b18Vhb6Z4kB5Vu11","hf_20260525_012425_fbe7f757-8ae0-45b0-b8e3-06e267b180ae":"https://buy.stripe.com/14A4gs7f5c7tfnf9EV5Vu12","hf_20260525_013719_163c4dc1-da8d-43c6-9253-18361ed7735a":"https://buy.stripe.com/3cIbIU42T4F1df7bN35Vu13"};
-    const bundleLinks = {
-      grace: "https://buy.stripe.com/7sY7sE42T4F1df7eZf5Vu17",
-      glory: "https://buy.stripe.com/bJe6oAgPF7Rd4IB4kB5Vu18",
-      full: "https://buy.stripe.com/3cIeV656X9Zlcb35oF5Vu19"
-    };
+    // Stripe Price IDs for checkout sessions
+    const stripePrices = {"hf_20260520_021442_048755e3-f9e7-481a-ba60-85f68814ef1c":"price_1Tb6uz67yoxIEqDvYoeAdD5C","hf_20260520_021539_77248a32-d25b-4faa-9b57-31ab2e9116b9":"price_1Tb6v267yoxIEqDv1dT9Rd1a","hf_20260520_022043_edd5841d-c95d-43cb-8b08-29188cd69a83":"price_1Tb6v467yoxIEqDvijYpb9Kv","hf_20260520_022106_589ed4ba-8772-4e58-8df6-f6dac9ed5ef6":"price_1Tb6v767yoxIEqDvmBPFMSYN","hf_20260522_014701_2630de47-351c-4ced-a62f-7c7bab547c4c":"price_1Tb6v967yoxIEqDvapfHM7ls","hf_20260522_014904_54a76800-8bf9-4282-8766-16c77df81038":"price_1Tb6vC67yoxIEqDv6SAdQDVV","hf_20260522_015705_b526302d-0d11-4bfb-985b-6a1ce7ab2517":"price_1Tb6vG67yoxIEqDvZK8KwIMS","hf_20260522_015722_7bffd1bd-80f0-4332-bb77-4534024f2b3e":"price_1Tb6vJ67yoxIEqDvGlxQ0yDC","hf_20260522_015737_7c2021dc-a2d0-4ee1-b4ae-778fc9fbb94a":"price_1Tb6vL67yoxIEqDvub6oofhr","hf_20260522_015752_0ba5e6d9-4224-4377-b0e1-c20d26c4510c":"price_1Tb6vO67yoxIEqDvuTVFWrOU","hf_20260522_020144_ef89dcc5-fc0d-412c-8ab3-66e847a012e2":"price_1Tb6vR67yoxIEqDvmVRDYCP5","hf_20260522_020211_41e4cb28-78e0-4eef-b325-197877340677":"price_1Tb6vT67yoxIEqDvcp5mcsfG","hf_20260522_020253_4f332a66-8c17-47a5-8b5a-aa4bbf868919":"price_1Tb6vW67yoxIEqDv2ZJFaVRB","hf_20260522_020315_aecc046c-69d1-4485-95e0-cdc143696d98":"price_1Tb6vZ67yoxIEqDvH32XMmhq","hf_20260522_020330_898f1c70-47d0-42de-9d8b-f531ef1327e0":"price_1Tb6vb67yoxIEqDvczFMMwue","hf_20260522_020417_09aa00af-6307-4855-a88d-ffb9e1e4a8ca":"price_1Tb6ve67yoxIEqDvfNhIuCpd","hf_20260522_020429_647f480e-b736-44fe-9189-90f87871375e":"price_1Tb6vg67yoxIEqDvPmEeYDYW","hf_20260520_021554_aa85a339-8d57-4ef3-84ba-d209bfcce844":"price_1Tb6vj67yoxIEqDvVndXSDsK","hf_20260520_021940_c5e3f0bf-88e0-461e-bf9a-9e6a4de371fa":"price_1Tb6vm67yoxIEqDvQGeT50F5","hf_20260520_022131_ea41b2b3-e089-4ebc-99c7-e79dfe6c2865":"price_1Tb6vo67yoxIEqDv3iIAR71g","hf_20260522_014806_4f9fd4c5-0254-4fac-909a-cfd3f07f5de2":"price_1Tb6vr67yoxIEqDvdDX1ufAD","hf_20260522_015948_20ecd233-ec63-4d1f-a680-6dd7a31e4bd9":"price_1Tb6vv67yoxIEqDvDvwDPk01","hf_20260524_230958_669dda51-7d78-485e-8e6d-3a36afd5f5f6":"price_1Tb6vx67yoxIEqDvSbqmcavy","hf_20260525_012647_9a017adb-0f97-4fb7-af76-4b59e3b14e8b":"price_1Tb6w067yoxIEqDvQLiVduQc","hf_20260525_012728_77551364-fa24-4844-b4b3-3f59b493a0ab":"price_1Tb6w267yoxIEqDv4cLoRugG","hf_20260525_013351_857f811c-f3ec-4d2f-b1f3-4427d4d80bd9":"price_1Tb6w567yoxIEqDveS48Lle4","hf_20260525_013400_4d9c8e94-bc60-4eb9-9897-bfd9e6f6f960":"price_1Tb6w867yoxIEqDvBrD7VHVj","hf_20260520_021522_fa211fb0-e899-49c6-bd3e-003e4e00fef8":"price_1Tb6wA67yoxIEqDvPzKG2xel","hf_20260522_014953_9b33bfd7-ae2a-4654-a13c-68f4dc500dbd":"price_1Tb6wD67yoxIEqDvzd7DP1QA","hf_20260522_015031_9b998a38-402d-431b-b6ca-5276ccf13a71":"price_1Tb6wF67yoxIEqDvCGJxznoV","hf_20260522_020033_bc2813eb-0ed4-4672-9e70-5f75ee47f0d3":"price_1Tb6wI67yoxIEqDvzl1QgmOW","hf_20260524_234854_c20d59a6-1188-42a8-ba2e-4c8203ca1dac":"price_1Tb6wK67yoxIEqDvuBGlVebp","hf_20260524_230914_ef3f99b2-7dda-48f6-96fb-b5a46baccd88":"price_1Tb6wN67yoxIEqDvnPW0XGNY","hf_20260522_020131_cdeec9c8-ff15-4de0-baa1-287479f8673e":"price_1Tb6wP67yoxIEqDvanZqbUg3","hf_20260524_231138_d2a8eb83-8e96-483b-a60d-b3b2d2ffacc4":"price_1Tb6wS67yoxIEqDvUC3C4kuN","hf_20260524_231218_37b6cac6-3a7f-4f43-b32d-9252f891fa15":"price_1Tb6wU67yoxIEqDvSR8PB49Q","hf_20260524_233633_f98e9674-a8a5-4f84-ae6b-232c8569d12e":"price_1Tb6wW67yoxIEqDvMhBReQkg","hf_20260524_233918_6f4f2b1a-6520-4ca0-8840-e3a9f5125fb8":"price_1Tb6wZ67yoxIEqDv3ZLkdZOk","hf_20260524_234538_a5b5e740-6e09-4468-b526-10f860dfb166":"price_1Tb6wc67yoxIEqDvJl7CUrV0","hf_20260524_234803_29a46dc9-b382-442d-a695-8188523f6bac":"price_1Tb6we67yoxIEqDvxr43tC2Y","hf_20260524_235128_53effd78-9d2f-47bb-975a-a8893bde6185":"price_1Tb6wg67yoxIEqDvyHYKxe4j","hf_20260524_235147_58030cfd-786f-421d-b791-f3e2fc1d6006":"price_1Tb6wj67yoxIEqDv5bLQ1lhI","hf_20260524_235312_61697ba2-3087-4af8-a365-619032151051":"price_1Tb6wl67yoxIEqDvj2hM5vQj","hf_20260524_235437_19f028e4-9587-49cc-8422-7b2f6eb8e9b2":"price_1Tb6xH67yoxIEqDvjjc8Fpiz","hf_20260525_015911_af38e4ca-5c3b-45c1-846c-6d76964bc002":"price_1Tb6wr67yoxIEqDv0sg6yQOK","hf_20260525_020522_a5c4e743-c709-4065-bc8d-5b1cf2eaa4f8":"price_1Tb6wu67yoxIEqDvO17zpQRu","hf_20260520_005942_75c0cb3e-c5f2-47a0-b1ad-212ae8d916a8":"price_1Tb6ww67yoxIEqDv8XTsBdpV","hf_20260522_014517_025d89ba-df5e-4559-a559-ce9c6583b7e7":"price_1Tb6wz67yoxIEqDvmKCFQP0e","hf_20260522_014938_fbe7937a-230c-4a90-bdec-c6f24dd7e231":"price_1Tb6x167yoxIEqDvrmJHRYLI","hf_20260524_235020_c18521b2-6c03-4998-ab6c-e926eebfdc59":"price_1Tb6x567yoxIEqDvp641uFql","hf_20260524_235103_0ec462dd-5964-42c1-9572-abc6a5300239":"price_1Tb6x867yoxIEqDvg79jdkSA","hf_20260524_235114_61c09e09-b422-44ae-a721-938f70d1cbbc":"price_1Tb6xC67yoxIEqDvLHRUZxoD","hf_20260524_235338_789babc4-93d7-470f-8cc4-f192e4d2673c":"price_1Tb6xF67yoxIEqDv906WfGqs","hf_20260524_234909_d8ec862f-bc7f-4899-91b9-01d48a28efbb":"price_1Tb6xK67yoxIEqDv6icb8w6d","hf_20260524_234817_36916bf3-1bb4-4da2-bef8-d8468ddd5e1f":"price_1Tb6xN67yoxIEqDv2scAMh5a","hf_20260524_235822_541a7c58-a512-4377-8d7d-c3b50637f778":"price_1Tb6xP67yoxIEqDvjBaQUizv","hf_20260525_004650_e09b6415-e642-4b5e-bfed-82e07610a613":"price_1Tb6xS67yoxIEqDvtsu0bd3y","hf_20260525_005208_d9f5193a-46df-4710-b72a-d64fbfc49554":"price_1Tb6xU67yoxIEqDvY2xnjnp6","hf_20260525_005414_d61bb3ee-e9fa-4677-912c-aff06c198ba9":"price_1Tb6xX67yoxIEqDvKFfqzgBV","hf_20260525_010537_519e006e-0060-4a5e-9c6d-c8f4dd9f020d":"price_1Tb6xa67yoxIEqDv3ReKQ3mO","hf_20260525_013051_52e78868-526e-49cd-b7bf-aecaacc4e4ea":"price_1Tb6xd67yoxIEqDvUsZaZRNH","hf_20260525_004422_9b09f014-3dfe-4137-9b55-a69290a1fd90":"price_1Tb6xg67yoxIEqDv4iFEmiMP","hf_20260525_004605_d8267d34-44f8-4d21-9865-f195bb52ccd2":"price_1Tb6xj67yoxIEqDv4xaimiHN","hf_20260525_012425_fbe7f757-8ae0-45b0-b8e3-06e267b180ae":"price_1Tb6xl67yoxIEqDvAllohUpA","hf_20260525_013719_163c4dc1-da8d-43c6-9253-18361ed7735a":"price_1Tb6xo67yoxIEqDvJqA2XddT"};
+    const bundlePrices = { grace: "price_1Tb6xq67yoxIEqDvFEDubpxv", glory: "price_1Tb6xt67yoxIEqDvnrhjH1pw", full: "price_1Tb6xv67yoxIEqDvZ9gR3rkS" };
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxAAMl8DHsbbSv4qqxTfM1IERuB3xsOx_Hl8kaRNB3tOJEQtiu3i-Jh2yObebo26oLGnw/exec';
 
-    function getStripeLink(fileKey) {
+    function getPriceId(fileKey) {
       const key = fileKey.replace('.jpg','');
-      return stripeLinks[key] || '#';
+      return stripePrices[key] || null;
     }
 
     let currentFilter = 'all';
@@ -963,7 +960,7 @@
                   <div class="product-card-img">
                     <img src="thumb/${p.file}" alt="${p.name}" loading="lazy">
                     <div class="product-card-overlay">
-                      <button class="add-to-cart-btn" onclick="event.stopPropagation(); window.open(getStripeLink('${p.file}'),'_blank')">Buy Now - $5</button>
+                      <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${globalIdx})">Add to Cart</button>
                     </div>
                   </div>
                   <div class="product-card-info">
@@ -1002,11 +999,14 @@
       cart.push({ type: 'print', idx, name: p.name, price: 5, file: p.file });
       updateCart();
       showToast(`Added "${p.name}" to cart`);
+      // Open cart drawer
+      if (!document.getElementById('cartDrawer').classList.contains('open')) toggleCart();
     }
 
-    function addBundle(name, price) {
-      cart.push({ type: 'bundle', name, price, file: null });
+    function addBundle(name, price, priceId) {
+      cart.push({ type: 'bundle', name, price, file: null, priceId });
       updateCart();
+      toggleCart();
       showToast(`Added "${name}" bundle to cart`);
     }
 
@@ -1064,7 +1064,7 @@
       document.getElementById('lightboxImg').src = `img/${p.file}`;
       document.getElementById('lightboxTitle').textContent = p.name;
       document.getElementById('lightboxCat').textContent = p.catLabel;
-      document.getElementById('lightboxAdd').onclick = () => { window.open(getStripeLink(p.file),'_blank'); };
+      document.getElementById('lightboxAdd').onclick = () => { addToCart(idx); closeLightbox(); };
       document.getElementById('lightbox').classList.add('active');
       document.body.style.overflow = 'hidden';
     }
@@ -1109,23 +1109,56 @@
     function handleEmailSubmit(e) {
       e.preventDefault();
       const email = document.getElementById('emailInput').value;
-      // Save locally as backup
       let emails = JSON.parse(localStorage.getItem('bgag_emails') || '[]');
       emails.push({ email, date: new Date().toISOString() });
       localStorage.setItem('bgag_emails', JSON.stringify(emails));
-      // Send to Google Sheets via Apps Script
-      const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxAAMl8DHsbbSv4qqxTfM1IERuB3xsOx_Hl8kaRNB3tOJEQtiu3i-Jh2yObebo26oLGnw/exec';
-      if (SHEET_URL !== 'https://script.google.com/macros/s/AKfycbxAAMl8DHsbbSv4qqxTfM1IERuB3xsOx_Hl8kaRNB3tOJEQtiu3i-Jh2yObebo26oLGnw/exec') {
-        fetch(SHEET_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'application/json'}, body: JSON.stringify({email, date: new Date().toISOString(), source: 'website'}) });
-      }
+      fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', headers: {'Content-Type':'application/json'}, body: JSON.stringify({email, date: new Date().toISOString(), source: 'website'}) });
       document.getElementById('emailForm').innerHTML = '<p class="email-success">Welcome, sis. Your first free print is on its way.</p>';
       showToast('You\'re on the list!');
     }
 
-    // ══════════════ PAYHIP CHECKOUT ══════════════
-    // TODO: Replace these with your Payhip product URLs after setup
-    // Each print needs a payhipUrl property added to the prints array
-    // For now, checkout shows a message to complete Payhip setup
+    // ══════════════ STRIPE CHECKOUT ══════════════
+    function checkout() {
+      if (cart.length === 0) return;
+      const checkoutBtn = document.querySelector('.cart-checkout');
+      checkoutBtn.textContent = 'PROCESSING...';
+      checkoutBtn.style.opacity = '0.6';
+
+      const items = cart.map(item => {
+        if (item.type === 'bundle') return { priceId: item.priceId };
+        const key = item.file.replace('.jpg','');
+        return { priceId: stripePrices[key] };
+      }).filter(i => i.priceId);
+
+      // Build file keys for download page
+      const fileKeys = cart.filter(i => i.type === 'print').map(i => i.file.replace('.jpg','')).join(',');
+
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: {'Content-Type':'application/json'},
+        body: JSON.stringify({
+          type: 'checkout',
+          items: items,
+          successUrl: 'https://esiprints.shop/download.html?purchased=' + encodeURIComponent(fileKeys),
+          cancelUrl: 'https://esiprints.shop/'
+        })
+      })
+      .then(r => r.json())
+      .then(data => {
+        if (data.url) {
+          window.location.href = data.url;
+        } else {
+          showToast('Checkout error. Please try again.');
+          checkoutBtn.textContent = 'CHECKOUT';
+          checkoutBtn.style.opacity = '1';
+        }
+      })
+      .catch(() => {
+        showToast('Connection error. Please try again.');
+        checkoutBtn.textContent = 'CHECKOUT';
+        checkoutBtn.style.opacity = '1';
+      });
+    }
 
     // ══════════════ INIT ══════════════
     renderGallery();

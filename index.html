@@ -998,16 +998,13 @@
       }
       cart.push({ type: 'print', idx, name: p.name, price: 5, file: p.file });
       updateCart();
-      showToast(`Added "${p.name}" to cart`);
-      // Open cart drawer
-      if (!document.getElementById('cartDrawer').classList.contains('open')) toggleCart();
+      showToast(`"${p.name}" added to cart`);
     }
 
     function addBundle(name, price, priceId) {
       cart.push({ type: 'bundle', name, price, file: null, priceId });
       updateCart();
-      toggleCart();
-      showToast(`Added "${name}" bundle to cart`);
+      showToast(`"${name}" added to cart`);
     }
 
     function removeFromCart(i) {
@@ -1144,23 +1141,15 @@
 
       const fileKeys = cart.filter(i => i.type === 'print').map(i => i.file.replace('.jpg','')).join(',');
 
-      // Use hidden form + redirect to avoid CORS issues with Apps Script
-      const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = SCRIPT_URL;
-      form.style.display = 'none';
-
-      const input = document.createElement('input');
-      input.name = 'data';
-      input.value = JSON.stringify({
+      const payload = encodeURIComponent(JSON.stringify({
         type: 'checkout',
         items: items,
         successUrl: 'https://esiprints.shop/download.html?purchased=' + encodeURIComponent(fileKeys),
         cancelUrl: 'https://esiprints.shop/'
-      });
-      form.appendChild(input);
-      document.body.appendChild(form);
-      form.submit();
+      }));
+
+      // Direct browser navigation — no CORS, no sandbox issues
+      window.location.href = SCRIPT_URL + '?checkout=' + payload;
     }
 
     // ══════════════ INIT ══════════════

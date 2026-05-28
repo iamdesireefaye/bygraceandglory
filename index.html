@@ -1039,8 +1039,20 @@
         `).join('');
       }
 
-      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      const printCount = cart.filter(i => i.type === 'print').length;
+      let total = cart.reduce((sum, item) => sum + item.price, 0);
+
+      // Show bundle suggestion
+      let suggestion = '';
+      if (printCount >= 10 && printCount < 30 && !cart.some(i => i.type === 'bundle')) {
+        suggestion = '<div style="background:rgba(196,162,101,0.1);padding:0.8rem;margin-top:0.8rem;font-family:var(--font-body);font-size:0.65rem;color:var(--gold-dark);line-height:1.5;">You have ' + printCount + ' prints — the <strong>Grace Edit bundle</strong> gets you 10 prints for just $25 (save $' + (printCount * 5 - 25) + '). <a href="#bundles" onclick="toggleCart()" style="color:var(--gold);text-decoration:underline;">View bundles</a></div>';
+      } else if (printCount >= 30 && printCount < 66 && !cart.some(i => i.type === 'bundle')) {
+        suggestion = '<div style="background:rgba(196,162,101,0.1);padding:0.8rem;margin-top:0.8rem;font-family:var(--font-body);font-size:0.65rem;color:var(--gold-dark);line-height:1.5;">You have ' + printCount + ' prints — the <strong>Glory Bundle</strong> gets you 30 for just $55 (save $' + (printCount * 5 - 55) + '). <a href="#bundles" onclick="toggleCart()" style="color:var(--gold);text-decoration:underline;">View bundles</a></div>';
+      }
+
       totalEl.textContent = `$${total}`;
+      // Add suggestion after items
+      if (suggestion) itemsEl.insertAdjacentHTML('beforeend', suggestion);
     }
 
     function toggleCart() {
@@ -1130,34 +1142,25 @@
         return { priceId: stripePrices[key] };
       }).filter(i => i.priceId);
 
-      // Build file keys for download page
       const fileKeys = cart.filter(i => i.type === 'print').map(i => i.file.replace('.jpg','')).join(',');
 
-      fetch(SCRIPT_URL, {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({
-          type: 'checkout',
-          items: items,
-          successUrl: 'https://esiprints.shop/download.html?purchased=' + encodeURIComponent(fileKeys),
-          cancelUrl: 'https://esiprints.shop/'
-        })
-      })
-      .then(r => r.json())
-      .then(data => {
-        if (data.url) {
-          window.location.href = data.url;
-        } else {
-          showToast('Checkout error. Please try again.');
-          checkoutBtn.textContent = 'CHECKOUT';
-          checkoutBtn.style.opacity = '1';
-        }
-      })
-      .catch(() => {
-        showToast('Connection error. Please try again.');
-        checkoutBtn.textContent = 'CHECKOUT';
-        checkoutBtn.style.opacity = '1';
+      // Use hidden form + redirect to avoid CORS issues with Apps Script
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = SCRIPT_URL;
+      form.style.display = 'none';
+
+      const input = document.createElement('input');
+      input.name = 'data';
+      input.value = JSON.stringify({
+        type: 'checkout',
+        items: items,
+        successUrl: 'https://esiprints.shop/download.html?purchased=' + encodeURIComponent(fileKeys),
+        cancelUrl: 'https://esiprints.shop/'
       });
+      form.appendChild(input);
+      document.body.appendChild(form);
+      form.submit();
     }
 
     // ══════════════ INIT ══════════════

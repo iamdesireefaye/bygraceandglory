@@ -586,6 +586,7 @@
       .product-card-title { font-size: 0.9rem; }
     }
   </style>
+  <script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
 
@@ -1126,30 +1127,33 @@
       showToast('You\'re on the list!');
     }
 
-    // ══════════════ STRIPE CHECKOUT ══════════════
+    // ══════════════ STRIPE CHECKOUT (client-side) ══════════════
+    const stripe = Stripe('pk_live_51Tb6kU67yoxIEqDvliOXijNoGtCFhh3v4DMK0cQVfjytw007OFtB2UigaduIh9s5snz2NwgjVJ6Q3roMpptS0Noj00mavhGwsD');
+
     function checkout() {
       if (cart.length === 0) return;
       const checkoutBtn = document.querySelector('.cart-checkout');
-      checkoutBtn.textContent = 'PROCESSING...';
+      checkoutBtn.textContent = 'REDIRECTING...';
       checkoutBtn.style.opacity = '0.6';
 
-      const items = cart.map(item => {
-        if (item.type === 'bundle') return { priceId: item.priceId };
+      const lineItems = cart.map(item => {
+        if (item.type === 'bundle') return { price: item.priceId, quantity: 1 };
         const key = item.file.replace('.jpg','');
-        return { priceId: stripePrices[key] };
-      }).filter(i => i.priceId);
+        return { price: stripePrices[key], quantity: 1 };
+      }).filter(i => i.price);
 
-      const fileKeys = cart.filter(i => i.type === 'print').map(i => i.file.replace('.jpg','')).join(',');
-
-      const payload = encodeURIComponent(JSON.stringify({
-        type: 'checkout',
-        items: items,
-        successUrl: 'https://esiprints.shop/download.html?purchased=' + encodeURIComponent(fileKeys),
-        cancelUrl: 'https://esiprints.shop/'
-      }));
-
-      // Direct browser navigation — no CORS, no sandbox issues
-      window.location.href = SCRIPT_URL + '?checkout=' + payload;
+      stripe.redirectToCheckout({
+        lineItems: lineItems,
+        mode: 'payment',
+        successUrl: 'https://esiprints.shop/download.html?purchased=cart',
+        cancelUrl: 'https://esiprints.shop/',
+      }).then(function(result) {
+        if (result.error) {
+          showToast(result.error.message);
+          checkoutBtn.textContent = 'CHECKOUT';
+          checkoutBtn.style.opacity = '1';
+        }
+      });
     }
 
     // ══════════════ INIT ══════════════

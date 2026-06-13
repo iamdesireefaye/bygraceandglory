@@ -7,6 +7,11 @@
 //   RESEND_API_KEY          — your Resend API key
 
 const GITHUB_RAW = "https://raw.githubusercontent.com/iamdesireefaye/bygraceandglory/main/downloads/";
+const BUNDLE_PRICE_IDS = new Set([
+  "price_1Tb6xq67yoxIEqDvFEDubpxv", // Grace Edit
+  "price_1Tb6xt67yoxIEqDvnrhjH1pw", // Glory Bundle
+  "price_1Tb6xv67yoxIEqDvZ9gR3rkS", // Full Testimony
+]);
 
 // ── Price ID → product mapping ────────────────────────────────────────────────
 const PRICE_TO_PRODUCT: Record<string, { name: string; file: string }> = {
@@ -196,9 +201,32 @@ export default async function (req: Request): Promise<Response> {
   const lineItems = liData.data ?? [];
 
   const products: Array<{ name: string; url: string }> = [];
+  let bundleFilesHandled = false;
+
   for (const item of lineItems) {
     const priceId = item.price?.id;
-    const product = priceId ? PRICE_TO_PRODUCT[priceId] : null;
+    if (!priceId) continue;
+
+    // Bundle price IDs — look up selected files from session metadata
+    if (BUNDLE_PRICE_IDS.has(priceId) && !bundleFilesHandled) {
+      bundleFilesHandled = true;
+      const sessionRes = await fetch(
+        `https://api.stripe.com/v1/checkout/sessions/${session.id}`,
+        { headers: { Authorization: "Basic " + btoa(stripeKey + ":"), "Stripe-Version": "2023-10-16" } },
+      );
+      const sessionData = await sessionRes.json();
+      const meta = sessionData.metadata || {};
+      let filesStr = "";
+      for (let n = 0; meta["files_" + n]; n++) filesStr += meta["files_" + n];
+      const files = filesStr.split(",").filter(Boolean);
+      for (const file of files) {
+        const name = file.replace(".png", "");
+        products.push({ name, url: GITHUB_RAW + encodeURIComponent(file.replace(".png", ".jpg")) });
+      }
+      continue;
+    }
+
+    const product = PRICE_TO_PRODUCT[priceId];
     if (!product) { console.warn("Unknown price ID:", priceId); continue; }
     const qty = item.quantity ?? 1;
     for (let i = 0; i < qty; i++) {

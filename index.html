@@ -1066,20 +1066,31 @@
         `).join('');
       }
 
-      const printCount = cart.filter(i => i.type === 'print').length;
+      const prints = cart.filter(i => i.type === 'print');
+      const printCount = prints.length;
+      const hasBundleItem = cart.some(i => i.type === 'bundle');
       let total = cart.reduce((sum, item) => sum + item.price, 0);
 
-      // Show bundle suggestion
-      let suggestion = '';
-      if (printCount >= 10 && printCount < 30 && !cart.some(i => i.type === 'bundle')) {
-        suggestion = '<div style="background:rgba(196,162,101,0.1);padding:0.8rem;margin-top:0.8rem;font-family:var(--font-body);font-size:0.65rem;color:var(--gold-dark);line-height:1.5;">You have ' + printCount + ' prints — the <strong>Grace Edit bundle</strong> gets you 10 prints for just $25 (save $' + (printCount * 5 - 25) + '). <a href="#bundles" onclick="toggleCart()" style="color:var(--gold);text-decoration:underline;">View bundles</a></div>';
-      } else if (printCount >= 30 && printCount < 66 && !cart.some(i => i.type === 'bundle')) {
-        suggestion = '<div style="background:rgba(196,162,101,0.1);padding:0.8rem;margin-top:0.8rem;font-family:var(--font-body);font-size:0.65rem;color:var(--gold-dark);line-height:1.5;">You have ' + printCount + ' prints — the <strong>Glory Bundle</strong> gets you 30 for just $55 (save $' + (printCount * 5 - 55) + '). <a href="#bundles" onclick="toggleCart()" style="color:var(--gold);text-decoration:underline;">View bundles</a></div>';
+      // Auto-apply bundle discount for eligible print counts (no explicit bundle in cart)
+      let bundleDiscount = '';
+      if (!hasBundleItem) {
+        if (printCount >= 66) {
+          const savings = total - 99;
+          total = 99;
+          bundleDiscount = '<div style="background:rgba(196,162,101,0.15);padding:0.8rem;margin-top:0.8rem;font-family:var(--font-body);font-size:0.65rem;color:var(--gold-dark);line-height:1.5;">✦ <strong>Full Testimony bundle applied</strong> — you save $' + savings + '!</div>';
+        } else if (printCount >= 30) {
+          const savings = total - 55;
+          total = 55;
+          bundleDiscount = '<div style="background:rgba(196,162,101,0.15);padding:0.8rem;margin-top:0.8rem;font-family:var(--font-body);font-size:0.65rem;color:var(--gold-dark);line-height:1.5;">✦ <strong>Glory Bundle price applied</strong> — you save $' + savings + '!</div>';
+        } else if (printCount >= 10) {
+          const savings = total - 25;
+          total = 25;
+          bundleDiscount = '<div style="background:rgba(196,162,101,0.15);padding:0.8rem;margin-top:0.8rem;font-family:var(--font-body);font-size:0.65rem;color:var(--gold-dark);line-height:1.5;">✦ <strong>Grace Edit bundle price applied</strong> — you save $' + savings + '!</div>';
+        }
       }
 
       totalEl.textContent = `$${total}`;
-      // Add suggestion after items
-      if (suggestion) itemsEl.insertAdjacentHTML('beforeend', suggestion);
+      if (bundleDiscount) itemsEl.insertAdjacentHTML('beforeend', bundleDiscount);
     }
 
     function toggleCart() {
@@ -1170,19 +1181,43 @@
       checkoutBtn.textContent = 'REDIRECTING...';
       checkoutBtn.style.opacity = '0.6';
 
-      const items = cart.map(item => {
-        if (item.type === 'bundle') return { priceId: item.priceId };
-        const key = item.file.replace('.png','');
-        return { priceId: stripePrices[key] };
-      }).filter(i => i.priceId);
+      const prints = cart.filter(i => i.type === 'print');
+      const printCount = prints.length;
+      const hasBundleItem = cart.some(i => i.type === 'bundle');
 
-      const fileKeys = cart.filter(i => i.type === 'print').map(i => i.file.replace('.png','')).join(',');
+      let items, metadata = {};
+
+      // Auto-apply bundle pricing when eligible
+      if (!hasBundleItem && printCount >= 10) {
+        const filesStr = prints.map(i => i.file).join(',');
+        // Chunk file list into metadata (Stripe max 500 chars per value)
+        const chunk = 480;
+        for (let i = 0, n = 0; i < filesStr.length; i += chunk, n++) {
+          metadata['files_' + n] = filesStr.slice(i, i + chunk);
+        }
+        if (printCount >= 66) {
+          items = [{ priceId: bundlePrices.full }];
+        } else if (printCount >= 30) {
+          items = [{ priceId: bundlePrices.glory }];
+        } else {
+          items = [{ priceId: bundlePrices.grace }];
+        }
+      } else {
+        items = cart.map(item => {
+          if (item.type === 'bundle') return { priceId: item.priceId };
+          const key = item.file.replace('.png','');
+          return { priceId: stripePrices[key] };
+        }).filter(i => i.priceId);
+      }
+
+      const fileKeys = prints.map(i => i.file.replace('.png','')).join(',');
 
       fetch(CHECKOUT_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          items: items,
+          items,
+          metadata,
           successUrl: 'https://esiprints.shop/download.html?purchased=' + encodeURIComponent(fileKeys),
           cancelUrl: 'https://esiprints.shop/'
         })

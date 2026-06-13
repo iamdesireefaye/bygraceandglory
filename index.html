@@ -1014,7 +1014,7 @@
               const globalIdx = prints.indexOf(p);
               return `
                 <div class="product-card" onclick="openLightbox(${globalIdx})">
-                  <div class="product-card-img" style="background-image:url('thumb/${p.file}');" aria-label="${p.name}">
+                  <div class="product-card-img" style="background-image:url('thumb/${p.file.replace(/'/g, "%27")}');" aria-label="${p.name}">
                     <div class="product-card-overlay">
                       <button class="add-to-cart-btn" onclick="event.stopPropagation(); addToCart(${globalIdx})">Add to Cart</button>
                     </div>

@@ -87,6 +87,22 @@
     }
     .hero-image-container { position: absolute; inset: 0; z-index: 0; }
     .hero-image-container img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+
+    /* ═══ IMAGE PROTECTION ═══ */
+    img {
+      -webkit-user-drag: none;
+      -khtml-user-drag: none;
+      -moz-user-drag: none;
+      user-drag: none;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+    .lightbox-img-wrapper { position: relative; display: inline-block; }
+    .lightbox-img-shield {
+      position: absolute; inset: 0;
+      z-index: 10;
+      cursor: default;
+    }
     .hero-overlay {
       position: absolute; inset: 0;
       background: linear-gradient(to bottom, rgba(26,26,26,0.15) 0%, rgba(26,26,26,0) 30%, rgba(26,26,26,0.2) 60%, rgba(42,31,20,0.88) 100%);
@@ -790,7 +806,10 @@
     <div class="lightbox-content">
       <button class="lightbox-close" onclick="closeLightbox()">Close &times;</button>
       <button class="lightbox-nav lightbox-prev" onclick="navigateLightbox(-1)">&#8249;</button>
-      <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      <div class="lightbox-img-wrapper">
+        <div class="lightbox-img-shield"></div>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="">
+      </div>
       <div class="lightbox-info">
         <h3 class="lightbox-title" id="lightboxTitle"></h3>
         <p class="lightbox-cat" id="lightboxCat"></p>
@@ -1134,6 +1153,16 @@
       currentIndex = prints.indexOf(newPrint);
       openLightbox(currentIndex);
     }
+
+    // Image protection — block right-click and drag on all images
+    document.addEventListener('contextmenu', e => {
+      if (e.target.tagName === 'IMG' || e.target.classList.contains('lightbox-img-shield')) {
+        e.preventDefault();
+      }
+    });
+    document.addEventListener('dragstart', e => {
+      if (e.target.tagName === 'IMG') e.preventDefault();
+    });
 
     document.addEventListener('keydown', e => {
       if (e.key === 'Escape') closeLightbox();

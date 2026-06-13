@@ -88,107 +88,17 @@
   <p class="download-back"><a href="/">Continue Shopping</a></p>
 
   <script>
-    // Complete Google Drive file ID mapping
-    const driveFiles = {"hf_20260525_030449_c4cfd5d9-4be2-4444-a4ca-72a0e1275596":"1DWNlcMjww5ciL0XeOoPUYGaHIdxXqERa","hf_20260525_030240_ebfdb861-6a8f-4bd9-a79d-d66eb23a6f8a":"1csMIv7yIMatdsFETYlVBIDCOayni9RsE","hf_20260525_030228_ff5fcc9d-5b04-4bca-9228-7b221dd04390":"1xQQJqsPLWr-5X1KKpXq-R_i4HQ8JfXzZ","hf_20260525_030218_fea50f48-cbad-4883-bbba-fb8a62005af5":"1uSgU95TOZ5S65uA5qk9JKJnLXyQgf23X","hf_20260525_030101_bcd8d92e-87c7-4f07-89b7-8f174b395c7c":"1LiCJQ1ilNZEqYwtbj5DCyoJX4BNmAept","hf_20260525_030049_c4483ac9-4dce-470b-948d-f611dfe4b9d9":"1mEM9J36Fr06D0g7yYWrDlkk5YRe9x4_h","hf_20260525_030030_d784f97f-d703-4e41-ba2d-71c0a0deb66c":"1yZe8ke3x4DmbqJDFDtUENmBBIfWAu0iS","hf_20260525_030022_6cda5616-dd75-4d18-aacb-bc77a6a27664":"1R7Tup0LR7u3nbMYA3OCFQC9Tao4Iz7OI","hf_20260525_025947_698e2d0f-a8a7-43f9-b6ef-6b068c87ff0d":"1wJeZqH1qKCuJicYW1OMI7zbZt1NumN57","hf_20260525_025936_d72e3944-93d2-4f07-bf7a-2a07aeb46173":"1X0lxyo-GBpszINKthgaEijuhKJJhb-ph","hf_20260525_025908_0b6b3714-95ae-46e1-9c7f-8d2ebd4ca166":"1iBBT8Sa6m2q7A25YBrj9PrNLU7A914-u","hf_20260525_025752_2a43e03f-8af7-4526-9aa5-b799f92e8d23":"1dYHeZmauDoq4RGUUOljcgYMtDqo0FfCd","hf_20260525_025735_5cc9c206-d8bf-4bcc-a5c2-a0d3ba469d12":"1UQ9qA1AiYMwKQ5oTABkyD3rF8UE0jpdk","hf_20260525_025708_1c428c63-e7af-4932-aa9a-9f0a515c034e":"19MSveW4oGjsP71C7_o0ketcP5lleOgXK","hf_20260525_025605_47fb0a36-25b3-4d28-a799-0045780802ad":"1dZv0fQVXiyUH3zXMpOFLdq6wIV-OeCu0","hf_20260525_025551_42a6b219-e227-408e-a592-e8f8a1496a48":"1vOA5OeBoSA6mgoY2PHJjo40zUYzQjj5o","hf_20260525_025514_3ed80e9b-2c33-4e4e-9317-c65d52306139":"1cHRtAvW-p7o1mZDURt3nVX1w0UOH-1kx","hf_20260525_025500_746fe693-63dc-471f-93e6-d68afed0a40a":"14M3ugxWDXjpoTKIlV-C_qofXtXqFkADD","hf_20260525_024534_af7089bd-f082-4fbd-a5e6-08a420995b67":"19AsngChbBphUNKZ9zyrsbyGOGksGbeiw","hf_20260525_024423_ffc9affc-57f8-494f-ab51-5d91d3fdef98":"1SBzETbdX_rd4asgwo7YBuXqUlejO5CFl","hf_20260525_022120_b77592a4-1389-41dc-9cf5-f9304346a743":"1oTjlCLEF1IkrzRz8-_2dVWDOtTjw5AtI","hf_20260525_022103_a8b7a1d7-b112-4121-9201-3fab1559393c":"1mPSvkwBZED4NJgzYmFMWKGM6eHFY8rZE","hf_20260525_021924_64cf1c8a-5d7f-486d-92f0-ad9aaf12dd74":"1PGY5DkRmXrdi_D2k6INcsnp1o1v9kBJp","hf_20260525_021317_19917831-1db5-4a66-b133-383beb82c269":"1D31CP6yHs5_msGAS8NvDG_1j0LYGHLwe","hf_20260525_020522_a5c4e743-c709-4065-bc8d-5b1cf2eaa4f8":"1gBEYS-WWF1RhJOqJMC9VVSXSpfCZonUV","hf_20260525_015911_af38e4ca-5c3b-45c1-846c-6d76964bc002":"1UqNqMLjyr7YIQKke-ZoRbpqYdioTRCnE","hf_20260525_013719_163c4dc1-da8d-43c6-9253-18361ed7735a":"1xdJ3Myt88DS-FW1y5V52Shm9evVN7T34","hf_20260525_013400_4d9c8e94-bc60-4eb9-9897-bfd9e6f6f960":"1N4g1bJvGOA6J6zE6QoDxK9f2amIXzmNV","hf_20260525_013351_857f811c-f3ec-4d2f-b1f3-4427d4d80bd9":"1xxWB2INJ7niApFt6YMbiLcCoD2CTqPd1","hf_20260525_013051_52e78868-526e-49cd-b7bf-aecaacc4e4ea":"1WHTAxIxXjhqh0pLYE7s1oZaN_vqouj4w","hf_20260525_012728_77551364-fa24-4844-b4b3-3f59b493a0ab":"10hNNn403u3tz3n5DEZz536x-1MRTUPHc","hf_20260525_012647_9a017adb-0f97-4fb7-af76-4b59e3b14e8b":"1WrOQRmrP9iWUfe31vOBPyGl7HijGhsjC","hf_20260525_012425_fbe7f757-8ae0-45b0-b8e3-06e267b180ae":"1LodpjcwhLAMq8gSPpZgcOd1Qu1hnPX2W","hf_20260525_010537_519e006e-0060-4a5e-9c6d-c8f4dd9f020d":"14qCxOB0xRc1OfdpoMoR7m_iMKh5asiRI","hf_20260525_005414_d61bb3ee-e9fa-4677-912c-aff06c198ba9":"1f8RLSDhM-7g9WvbMk9BGfdMwOrLI5vj0","hf_20260525_005208_d9f5193a-46df-4710-b72a-d64fbfc49554":"1fERTIFqSF0JD7hrqIc2y5SNFyzYH4YSA","hf_20260525_004650_e09b6415-e642-4b5e-bfed-82e07610a613":"1smM5WLHTyhtyJyR1t6YQggTjEdRxNGXX","hf_20260525_004605_d8267d34-44f8-4d21-9865-f195bb52ccd2":"1p8wVlyXaGRmqNA9b_ZAdyYx1hAc2cDKY","hf_20260525_004422_9b09f014-3dfe-4137-9b55-a69290a1fd90":"1pzd9Kk5-lRDBsSJw_ydn8D-kSmZ_muSA","hf_20260524_235822_541a7c58-a512-4377-8d7d-c3b50637f778":"1HJ0SKqO01zb0g78HfUEJNPVUOhmw8A10","hf_20260524_235437_19f028e4-9587-49cc-8422-7b2f6eb8e9b2":"1453PFtHW9XsD9nEuSj3vGyb_3YIOxEBe","hf_20260524_235348_dcac8638-ccfc-4cee-a396-8b0ff876778d":"1Lgv-Rl0ZMD7gSzlc3RFbmEnJpy60J_55","hf_20260524_235338_789babc4-93d7-470f-8cc4-f192e4d2673c":"1HDNTQ8pN61pX5gDipnCVJfHTkPNPDPuS","hf_20260524_235312_61697ba2-3087-4af8-a365-619032151051":"1BQ7TYGdRKAC7sRE5m729UIu5qtMNC-XV","hf_20260524_235147_58030cfd-786f-421d-b791-f3e2fc1d6006":"1QLLF6Q-0pryK3bvGStGI56Y6-NFkfVfy","hf_20260524_235128_53effd78-9d2f-47bb-975a-a8893bde6185":"1fF-S2wgioh6k1tWa8r5sdXQAGZO_JMZC","hf_20260524_235114_61c09e09-b422-44ae-a721-938f70d1cbbc":"1vHPVcUMRNO_rH_QE8hhidVGCADD20oYe","hf_20260524_235103_0ec462dd-5964-42c1-9572-abc6a5300239":"1ic0zbCvX9kwFr1sJBfOqaQKC4m1oogLj","hf_20260524_235020_c18521b2-6c03-4998-ab6c-e926eebfdc59":"1gbnTCpYmk6uztKWRR5sb_pvGbYW1mW9B","hf_20260524_234909_d8ec862f-bc7f-4899-91b9-01d48a28efbb":"1BVGtmAm8Tc0Ye8EBOPlvNXIQCJ5xyTsf","hf_20260524_234854_c20d59a6-1188-42a8-ba2e-4c8203ca1dac":"1_KkmgjwyEaIcr6_K9NqGQnt4vvqesnH0","hf_20260524_234817_36916bf3-1bb4-4da2-bef8-d8468ddd5e1f":"1dCRuAfbjHZvtQKOZ1whMWxjvj5PhtHoh","hf_20260524_234803_29a46dc9-b382-442d-a695-8188523f6bac":"1u8XNyFxVZ9H6QoylruObY7JvQXqIwCQe","hf_20260524_234538_a5b5e740-6e09-4468-b526-10f860dfb166":"1QL3PfVtaRaAa748HzU8br_h4xt-Kl2-L","hf_20260524_233918_6f4f2b1a-6520-4ca0-8840-e3a9f5125fb8":"1DcV6HxA4FiJiD2etJy49AAi31Z_GYfzF","hf_20260524_233633_f98e9674-a8a5-4f84-ae6b-232c8569d12e":"1TS6VJhHCDewfkM8PbE7HEGn_NS84hd8p","hf_20260524_231218_37b6cac6-3a7f-4f43-b32d-9252f891fa15":"1cRKdZTLKSjg2PO6iGmbjDt1mAkncSmqS","hf_20260524_231138_d2a8eb83-8e96-483b-a60d-b3b2d2ffacc4":"15DkdN-So1SdevHfIo9uS3WAghJgNYgSu","hf_20260524_230958_669dda51-7d78-485e-8e6d-3a36afd5f5f6":"1CYLEkHZCKCOInY-ruM8TJz8-s_YRUtfC","hf_20260524_230914_ef3f99b2-7dda-48f6-96fb-b5a46baccd88":"11NCbIYoSh8MvW5vgxlOjsqq4gzI37Zsh","hf_20260522_020429_647f480e-b736-44fe-9189-90f87871375e":"1uefoLZwgqP93sE9-VgjSv3BxbmQFJXRV","hf_20260522_020417_09aa00af-6307-4855-a88d-ffb9e1e4a8ca":"1Bger0Fkp3UiX3IdD8cGRRuaMbbUHv43G","hf_20260522_020330_898f1c70-47d0-42de-9d8b-f531ef1327e0":"1tyNaNLIb2szdGWonJD7D8KBQ0Djws9jU","hf_20260522_020315_aecc046c-69d1-4485-95e0-cdc143696d98":"1Ztdr6zm-cyrlY3pNs9EkBDqXFoOQfMKQ","hf_20260522_020253_4f332a66-8c17-47a5-8b5a-aa4bbf868919":"1JFZp8VzBgXS8VqI_VhRjD3nHd9KluxGH","hf_20260522_020211_41e4cb28-78e0-4eef-b325-197877340677":"1QUnJIy6EsFcwwNv_nrHWK3qSCq_WTykv","hf_20260522_020144_ef89dcc5-fc0d-412c-8ab3-66e847a012e2":"1WWW1odi2W-9Iql3FYzHnkMg48MdNd3vV","hf_20260522_020131_cdeec9c8-ff15-4de0-baa1-287479f8673e":"13VOjm_tyI6q4cL6auKhRgiX23Vulo0k6","hf_20260522_020033_bc2813eb-0ed4-4672-9e70-5f75ee47f0d3":"1Etzuw3Zxf8swpTPWWvdrOpHfzMYB78ZH","hf_20260522_015948_20ecd233-ec63-4d1f-a680-6dd7a31e4bd9":"1TYJUiicTN-L12xCoA1E6lea4niL3Vjbk","hf_20260522_015752_0ba5e6d9-4224-4377-b0e1-c20d26c4510c":"1STObbP5nCiM0E4L3MzG1RjTw-wUUUjwN","hf_20260522_015737_7c2021dc-a2d0-4ee1-b4ae-778fc9fbb94a":"1FflrTyYHBEgH51yndPR8AsskMD6MYf61","hf_20260522_015722_7bffd1bd-80f0-4332-bb77-4534024f2b3e":"1m45lXx89qb3IaoTyTB_BkpPIe2YYbnP1","hf_20260522_015705_b526302d-0d11-4bfb-985b-6a1ce7ab2517":"1U4L8C4f4d-_vv3Zlug2HwkPiXXJ7HHwV","hf_20260522_015031_9b998a38-402d-431b-b6ca-5276ccf13a71":"1BwL3BV2qun6HHsWGqNZJDzG_nLf_mVv7","hf_20260522_014953_9b33bfd7-ae2a-4654-a13c-68f4dc500dbd":"15PCk1H5kt_VJui60ovlGVxJLLNMN1odK","hf_20260522_014938_fbe7937a-230c-4a90-bdec-c6f24dd7e231":"10Ib2IeeVet4XLzba23-EjwDu5FGbe-Zf","hf_20260522_014904_54a76800-8bf9-4282-8766-16c77df81038":"1aoI-m0Nu29lticzICidJorUrNtgtxXc-","hf_20260522_014806_4f9fd4c5-0254-4fac-909a-cfd3f07f5de2":"1mqPvHw-xt1VGyT_fHonvG-92dSZvzlyc","hf_20260522_014701_2630de47-351c-4ced-a62f-7c7bab547c4c":"1hUMO_RZZD6_LVmnEuVHa4kmrsWuTDHot","hf_20260522_014517_025d89ba-df5e-4559-a559-ce9c6583b7e7":"1jEoUIrI39QnSyNnO7BsWCmynpHMwSBmS","hf_20260520_022131_ea41b2b3-e089-4ebc-99c7-e79dfe6c2865":"1sngwUbKTcV_YW08petEgLPMYI3CIRdlV","hf_20260520_022106_589ed4ba-8772-4e58-8df6-f6dac9ed5ef6":"1P3VGM58Sa5McRmSuTPiLn_mEF5UaPrOF","hf_20260520_022043_edd5841d-c95d-43cb-8b08-29188cd69a83":"1LXp_8S0mflUIACDUByJ5GcBKHXjSOQbH","hf_20260520_021940_c5e3f0bf-88e0-461e-bf9a-9e6a4de371fa":"1zhRTn--9bp9QGLWGYbI34lPMOHi5UbEz","hf_20260520_021554_aa85a339-8d57-4ef3-84ba-d209bfcce844":"1zQkwKhlfftV7g1vP_x-X_eDUJGjpUFdl","hf_20260520_021539_77248a32-d25b-4faa-9b57-31ab2e9116b9":"10QVQ8TK2pyb_SUQagwjBukW01wD9mIns","hf_20260520_021522_fa211fb0-e899-49c6-bd3e-003e4e00fef8":"1dIlzCWho1WuQdmckBd75lCR2sNyKJhhL","hf_20260520_021442_048755e3-f9e7-481a-ba60-85f68814ef1c":"1ywxUnrhz4-x5671fn6olG68kHvKkuZxS","hf_20260520_005942_75c0cb3e-c5f2-47a0-b1ad-212ae8d916a8":"1iATpIM74vOeWB4XKIz_fRJmqnJI2wWjH"};
-
-    // Fallback: link to the shared Drive folder for any unmapped files
-    const DRIVE_FOLDER = "https://drive.google.com/drive/folders/1-x9iooiVi9szfWKJkd_lMcjgXuJ8uhAn";
-
-    // Print names (same as main site)
-    const printNames = {
-      "hf_20260520_005942_75c0cb3e-c5f2-47a0-b1ad-212ae8d916a8": "Heart Balloons",
-      "hf_20260520_021442_048755e3-f9e7-481a-ba60-85f68814ef1c": "For I Know the Plans",
-      "hf_20260520_021522_fa211fb0-e899-49c6-bd3e-003e4e00fef8": "Crowned in Bloom",
-      "hf_20260520_021539_77248a32-d25b-4faa-9b57-31ab2e9116b9": "God Is Within Her",
-      "hf_20260520_021554_aa85a339-8d57-4ef3-84ba-d209bfcce844": "Violet Wings",
-      "hf_20260520_021940_c5e3f0bf-88e0-461e-bf9a-9e6a4de371fa": "Garden Whisper",
-      "hf_20260520_022043_edd5841d-c95d-43cb-8b08-29188cd69a83": "She Will Not Fall",
-      "hf_20260520_022106_589ed4ba-8772-4e58-8df6-f6dac9ed5ef6": "Soar on Wings Like Eagles",
-      "hf_20260520_022131_ea41b2b3-e089-4ebc-99c7-e79dfe6c2865": "Leopard & Butterflies",
-      "hf_20260522_014517_025d89ba-df5e-4559-a559-ce9c6583b7e7": "Heart Balloons II",
-      "hf_20260522_014701_2630de47-351c-4ced-a62f-7c7bab547c4c": "Write the Vision",
-      "hf_20260522_014806_4f9fd4c5-0254-4fac-909a-cfd3f07f5de2": "Veiled in Wings",
-      "hf_20260522_014904_54a76800-8bf9-4282-8766-16c77df81038": "For I Know the Plans II",
-      "hf_20260522_014938_fbe7937a-230c-4a90-bdec-c6f24dd7e231": "Candlelit Hands",
-      "hf_20260522_014953_9b33bfd7-ae2a-4654-a13c-68f4dc500dbd": "The Queen's Throne",
-      "hf_20260522_015031_9b998a38-402d-431b-b6ca-5276ccf13a71": "Wings of Worship",
-      "hf_20260522_015705_b526302d-0d11-4bfb-985b-6a1ce7ab2517": "The Plans I Have",
-      "hf_20260522_015722_7bffd1bd-80f0-4332-bb77-4534024f2b3e": "God Is Within Her II",
-      "hf_20260522_015737_7c2021dc-a2d0-4ee1-b4ae-778fc9fbb94a": "Soar on Wings II",
-      "hf_20260522_015752_0ba5e6d9-4224-4377-b0e1-c20d26c4510c": "Write the Vision II",
-      "hf_20260522_015948_20ecd233-ec63-4d1f-a680-6dd7a31e4bd9": "Sepia Butterfly Mask",
-      "hf_20260522_020033_bc2813eb-0ed4-4672-9e70-5f75ee47f0d3": "Floral Crown",
-      "hf_20260522_020131_cdeec9c8-ff15-4de0-baa1-287479f8673e": "Fearfully & Wonderfully Made",
-      "hf_20260522_020144_ef89dcc5-fc0d-412c-8ab3-66e847a012e2": "He Rejoices Over You",
-      "hf_20260522_020211_41e4cb28-78e0-4eef-b325-197877340677": "No Weapon Formed",
-      "hf_20260522_020253_4f332a66-8c17-47a5-8b5a-aa4bbf868919": "For Such a Time",
-      "hf_20260522_020315_aecc046c-69d1-4485-95e0-cdc143696d98": "His Mercies Are New",
-      "hf_20260522_020330_898f1c70-47d0-42de-9d8b-f531ef1327e0": "Windows of Heaven",
-      "hf_20260522_020417_09aa00af-6307-4855-a88d-ffb9e1e4a8ca": "Pour Out a Blessing",
-      "hf_20260522_020429_647f480e-b736-44fe-9189-90f87871375e": "Head and Not the Tail",
-      "hf_20260524_230914_ef3f99b2-7dda-48f6-96fb-b5a46baccd88": "Sunflower Joy",
-      "hf_20260524_230958_669dda51-7d78-485e-8e6d-3a36afd5f5f6": "Emerald Butterfly",
-      "hf_20260524_231138_d2a8eb83-8e96-483b-a60d-b3b2d2ffacc4": "Love Letters",
-      "hf_20260524_231218_37b6cac6-3a7f-4f43-b32d-9252f891fa15": "Candlelit Reading",
-      "hf_20260524_233633_f98e9674-a8a5-4f84-ae6b-232c8569d12e": "Held Close",
-      "hf_20260524_233918_6f4f2b1a-6520-4ca0-8840-e3a9f5125fb8": "Sunday Rest",
-      "hf_20260524_234538_a5b5e740-6e09-4468-b526-10f860dfb166": "Letters from God",
-      "hf_20260524_234803_29a46dc9-b382-442d-a695-8188523f6bac": "Resting in the Word",
-      "hf_20260524_234817_36916bf3-1bb4-4da2-bef8-d8468ddd5e1f": "Afternoon Light",
-      "hf_20260524_234854_c20d59a6-1188-42a8-ba2e-4c8203ca1dac": "Midnight Crown",
-      "hf_20260524_234909_d8ec862f-bc7f-4899-91b9-01d48a28efbb": "The Photographer",
-      "hf_20260524_235020_c18521b2-6c03-4998-ab6c-e926eebfdc59": "Morning Cup",
-      "hf_20260524_235103_0ec462dd-5964-42c1-9572-abc6a5300239": "New Morning",
-      "hf_20260524_235114_61c09e09-b422-44ae-a721-938f70d1cbbc": "Linen Morning",
-      "hf_20260524_235128_53effd78-9d2f-47bb-975a-a8893bde6185": "Butterfly Devotion",
-      "hf_20260524_235147_58030cfd-786f-421d-b791-f3e2fc1d6006": "Art Studio Devotion",
-      "hf_20260524_235312_61697ba2-3087-4af8-a365-619032151051": "Garden of the Word",
-      "hf_20260524_235338_789babc4-93d7-470f-8cc4-f192e4d2673c": "Morning Window",
-      "hf_20260524_235348_dcac8638-ccfc-4cee-a396-8b0ff876778d": "Mirror Reflection",
-      "hf_20260524_235437_19f028e4-9587-49cc-8422-7b2f6eb8e9b2": "Illuminated",
-      "hf_20260524_235822_541a7c58-a512-4377-8d7d-c3b50637f778": "Urban Jungle",
-      "hf_20260525_004422_9b09f014-3dfe-4137-9b55-a69290a1fd90": "Braids & Butterflies",
-      "hf_20260525_004605_d8267d34-44f8-4d21-9865-f195bb52ccd2": "Beaded Braids",
-      "hf_20260525_004650_e09b6415-e642-4b5e-bfed-82e07610a613": "The Botanist",
-      "hf_20260525_005208_d9f5193a-46df-4710-b72a-d64fbfc49554": "CEO Morning",
-      "hf_20260525_005414_d61bb3ee-e9fa-4677-912c-aff06c198ba9": "Plant Shop",
-      "hf_20260525_010537_519e006e-0060-4a5e-9c6d-c8f4dd9f020d": "First Class",
-      "hf_20260525_012425_fbe7f757-8ae0-45b0-b8e3-06e267b180ae": "Sister Sister",
-      "hf_20260525_012647_9a017adb-0f97-4fb7-af76-4b59e3b14e8b": "Monarch Veil",
-      "hf_20260525_012728_77551364-fa24-4844-b4b3-3f59b493a0ab": "Monarch Veil II",
-      "hf_20260525_013051_52e78868-526e-49cd-b7bf-aecaacc4e4ea": "Sunset Dinner",
-      "hf_20260525_013351_857f811c-f3ec-4d2f-b1f3-4427d4d80bd9": "Monarch Surrender",
-      "hf_20260525_013400_4d9c8e94-bc60-4eb9-9897-bfd9e6f6f960": "Purple Monarchs",
-      "hf_20260525_013719_163c4dc1-da8d-43c6-9253-18361ed7735a": "Side by Side",
-      "hf_20260525_015911_af38e4ca-5c3b-45c1-846c-6d76964bc002": "Holy Bible & Leopard",
-      "hf_20260525_020522_a5c4e743-c709-4065-bc8d-5b1cf2eaa4f8": "Evening Devotion",
-    };
-
-    // Parse URL params
-    const params = new URLSearchParams(window.location.search);
-    const fileKey = params.get('purchased');
-
-    if (fileKey && fileKey !== 'bundle') {
-      const name = printNames[fileKey] || 'Your Print';
-      document.getElementById('printName').textContent = '"' + name + '"';
-
-      // If we have a Drive ID, link directly; otherwise link to folder
-      const driveId = driveFiles[fileKey];
-      if (driveId) {
-        document.getElementById('downloadBtn').href = 'https://drive.google.com/uc?export=download&id=' + driveId;
-      } else {
-        // Fallback: open the shared folder
-        document.getElementById('downloadBtn').href = DRIVE_FOLDER;
-        document.getElementById('downloadBtn').textContent = 'Access Your Download';
-      }
-    } else if (fileKey === 'bundle') {
-      document.getElementById('printName').textContent = 'Your Bundle';
-      document.getElementById('downloadBtn').href = DRIVE_FOLDER;
-      document.getElementById('downloadBtn').textContent = 'Access All Your Prints';
-      document.querySelector('.download-subtitle').textContent = 'Your bundle purchase is complete. Access your prints in the link below.';
-    } else {
-      document.getElementById('downloadCard').innerHTML = '<p class="download-error">No purchase detected. If you just completed a purchase, please check your email for the download link, or contact hello@esiprints.shop</p>';
-    }
+    // Delivery is now handled by email (Val.town webhook + Resend).
+    // This page is the Stripe checkout success redirect.
+    document.getElementById('printName').textContent = 'Check your inbox';
+    document.getElementById('downloadBtn').style.display = 'none';
+    document.querySelector('.download-subtitle').textContent =
+      'Your order is confirmed! A download link has been sent to your email address. ' +
+      'Please check your inbox (and spam folder) for an email from hello@esiprints.shop.';
+    document.querySelector('.download-note').textContent =
+      'Each download link allows up to 2 downloads and delivers a high-resolution PNG. ' +
+      'For best results, print on archival matte paper up to 24×36 inches. ' +
+      'Questions? Email hello@esiprints.shop';
   </script>
 </body>
 </html>

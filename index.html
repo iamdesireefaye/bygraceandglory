@@ -961,7 +961,7 @@
     }
 
     let currentFilter = 'all';
-    let cart = [];
+    let cart = JSON.parse(localStorage.getItem('esi_cart') || '[]');
 
     // ══════════════ RENDER GALLERY ══════════════
     function renderGallery() {
@@ -1043,6 +1043,7 @@
     }
 
     function updateCart() {
+      localStorage.setItem('esi_cart', JSON.stringify(cart));
       const countEl = document.getElementById('cartCount');
       const itemsEl = document.getElementById('cartItems');
       const totalEl = document.getElementById('cartTotal');
@@ -1225,6 +1226,7 @@
       .then(r => r.json())
       .then(data => {
         if (data.url) {
+          localStorage.removeItem('esi_cart');
           window.location.href = data.url;
         } else {
           showToast('Checkout error. Please try again.');

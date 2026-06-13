@@ -1153,10 +1153,13 @@
       openLightbox(currentIndex);
     }
 
-    // Image protection — block right-click site-wide and all drag
+    // Image protection — block right-click, drag, and Cmd+S / Ctrl+S
     document.addEventListener('contextmenu', e => e.preventDefault());
     document.addEventListener('dragstart', e => {
       if (e.target.tagName === 'IMG') e.preventDefault();
+    });
+    document.addEventListener('keydown', e => {
+      if ((e.metaKey || e.ctrlKey) && e.key === 's') e.preventDefault();
     });
 
     document.addEventListener('keydown', e => {
